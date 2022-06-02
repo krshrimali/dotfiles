@@ -12,15 +12,16 @@ git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 nvim +PackerSync
 
 # Create a user repository
-cp ~/.config/nvim/lua/user_example ~/.config/nvim/lua/user
+cp -r ~/.config/nvim/lua/user_example ~/.config/nvim/lua/user
 ```
 
 Now clone this dotfiles repo:
 
 ```
+cd /tmp
 git clone git@github.com:krshrimali/dotfiles.git
 # Copy the init.lua to the user folder in ~/.config/nvim/lua
-cp dotfiles/neovim/init.lua ~/.config/nvim/lua/user/
+cp dotfiles/nvim/init.lua ~/.config/nvim/lua/user/
 nvim +PackerSync
 ```
 
