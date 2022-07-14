@@ -14,6 +14,7 @@ lvim.format_on_save = true
 lvim.colorscheme = "onedarker"
 
 lvim.builtin.cmp.active = false
+lvim.builtin.telescope.defaults.path_display.shorten = 6
 
 vim.opt.clipboard = ""
 
@@ -177,7 +178,6 @@ lvim.lsp.diagnostics.virtual_text = false
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
-require('neoscroll').setup()
 
 -- Additional Plugins
 lvim.plugins = {
@@ -210,6 +210,7 @@ lvim.plugins = {
     end
   }
 }
+require('neoscroll').setup()
 lvim.builtin.which_key.mappings["\\"] = {
   name = "+ToggleTerm",
   t = { "<cmd>ToggleTerm<cr>", "ToggleTerm" },
