@@ -11,9 +11,31 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "moonfly"
+lvim.colorscheme = "onedarker"
 
 lvim.builtin.cmp.active = false
+
+vim.opt.clipboard = ""
+
+-- <leader>y and <leader>p
+-- lvim.builtin.which_key.mappings = {
+--   y = { '"+y', "Yank" },
+--   p = { '"+p', "Paste" },
+-- }
+lvim.builtin.which_key.mappings.y = { '"+y', "Yank to clipboard" }
+lvim.builtin.which_key.mappings.p = { '"+p', "paste from clipboard" }
+lvim.builtin.which_key.mappings.P = { '"+P', "Paste from clipboard" }
+lvim.builtin.which_key.mappings.y = {
+  y = {
+    '"+yy', "Yank line to clipboard" }
+}
+lvim.builtin.which_key.vmappings.y = {
+  '"+y', "Yank to clipboard"
+}
+lvim.builtin.which_key.vmappings.p = {
+  '"+p', "Paste from clipboard"
+}
+
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
@@ -155,9 +177,12 @@ lvim.lsp.diagnostics.virtual_text = false
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
+require('neoscroll').setup()
 
 -- Additional Plugins
 lvim.plugins = {
+  { 'karb94/neoscroll.nvim' },
+  { "LunarVim/onedarker.nvim" },
   { "folke/tokyonight.nvim" },
   {
     "folke/trouble.nvim",
@@ -176,6 +201,14 @@ lvim.plugins = {
   { "preservim/tagbar" },
   { "SirVer/ultisnips" },
   { "honza/vim-snippets" },
+  {
+    'anuvyklack/pretty-fold.nvim',
+    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+    config = function()
+      require('pretty-fold').setup()
+      require('pretty-fold.preview').setup()
+    end
+  }
 }
 lvim.builtin.which_key.mappings["\\"] = {
   name = "+ToggleTerm",
@@ -185,6 +218,12 @@ lvim.builtin.which_key.mappings["\\"] = {
   s = { "<cmd>ToggleTermSendCurrentLine 0<cr>", "ToggleTerm send current line to id 0 " },
   l = { "<cmd>ToggleTermSendVisualLines 0<cr>", "ToggleTerm send visual lines " },
   e = { "<cmd>ToggleTermSendVisualSelection 0<cr>", "ToggleTerm send visual selection " },
+}
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Tagbar",
+  t = { "<cmd>TagbarToggle<cr>", "TagbarToggle" },
+  a = { "<cmd>TagbarOpenAutoClose<cr>", "TagbarAutoClose" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
