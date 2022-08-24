@@ -147,6 +147,10 @@ alias gcm="gc_msg;"
 # fzf alias: credits: https://www.youtube.com/shorts/CEt5rCcFg4g
 alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
 
+# Alias for lazygit
+# TODO: @krshrimali: check if lazygit is installed, then only run this, also raise a warning
+alias lg="lazygit"
+
 export PATH=~/.local/bin:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
