@@ -144,10 +144,11 @@ alias gpl="git pull"
 alias gc="git commit"
 alias gcm="gc_msg;"
 
+# fzf alias
+alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
 
 export PATH=~/.local/bin:$PATH
 
-# TODO: @krshrimali: probably get rid of this, and make this an alias to toggle
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/krshrimali/google-cloud-sdk/path.zsh.inc' ]; then . '/home/krshrimali/google-cloud-sdk/path.zsh.inc'; fi
 
