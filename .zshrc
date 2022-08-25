@@ -1,6 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -143,6 +142,7 @@ alias gp="git push"
 alias gpl="git pull"
 alias gc="git commit"
 alias gcm="gc_msg;"
+alias glp="git log -p"
 
 # fzf alias: credits: https://www.youtube.com/shorts/CEt5rCcFg4g
 alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
@@ -158,3 +158,15 @@ if [ -f '/home/krshrimali/google-cloud-sdk/path.zsh.inc' ]; then . '/home/krshri
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/krshrimali/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/krshrimali/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Source: https://wiki.archlinux.org/title/fzf
+# fzf aliases and key-bindings
+alias pa="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias pr="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
+alias pi="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}'"
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+# Autojump: https://github.com/wting/autojump
+[[ -s /home/krshrimali/.autojump/etc/profile.d/autojump.sh ]] && source /home/krshrimali/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
