@@ -118,6 +118,17 @@ function conda_activate() {
 }
 
 function conda_activate_env() {
+  __conda_setup="$('/home/krshrimali/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/home/krshrimali/anaconda3/etc/profile.d/conda.sh" ]; then
+          . "/home/krshrimali/anaconda3/etc/profile.d/conda.sh"
+      else
+          export PATH="/home/krshrimali/anaconda3/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
   conda activate "$(conda info --envs | fzf | awk '{print $1}')"
 }
 
@@ -148,8 +159,8 @@ alias glp="git log -p"
 # TODO: @krshrimali: check if lazygit is installed, then only run this, also raise a warning
 alias lg="lazygit"
 
-# export EDITOR="/usr/local/bin/nvim"
-# export VISUAL=$EDITOR
+export EDITOR="/usr/local/bin/nvim"
+export VISUAL=$EDITOR
 
 export PATH=~/.local/bin:$PATH
 
@@ -393,5 +404,7 @@ autoload -U compinit && compinit -u
 # # # [ -f ~/.forgit/forgit.plugin.zsh ] && source ~/.forgit/forgit.plugin.zsh
 
 # # # export FZF_DEFAULT_COMMAND='fd --type f --color=never --hidden'
+
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+# tmux
