@@ -408,4 +408,3 @@ autoload -U compinit && compinit -u
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
-# tmux
