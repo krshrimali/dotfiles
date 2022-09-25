@@ -7,7 +7,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="geoffgarside"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git themes)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -148,12 +148,16 @@ alias cod="conda deactivate"
 alias gap="git add -p"
 alias gp="git push"
 alias gpl="git pull"
-alias gc="git commit"
+alias gco="git commit"
+alias gc="git clonet "
 alias gcm="gc_msg;"
 alias glp="git log -p"
+alias glo="git log --oneline"
 
 # # # fzf alias: credits: https://www.youtube.com/shorts/CEt5rCcFg4g
 # # alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
+
+if [ "$TMUX" = "" ]; then tmux; fi
 
 # Alias for lazygit
 # TODO: @krshrimali: check if lazygit is installed, then only run this, also raise a warning
@@ -408,3 +412,14 @@ autoload -U compinit && compinit -u
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+
+# From dt's dotfiles: https://gitlab.com/dwt1/dotfiles/-/blob/master/.zshrc
+alias ls='exa -al --color=always --group-directories-first'  # my preferred listing
+alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first'  # long format
+alias lt='exa -aT --color=always --group-directories-first'  # tree listing
+
+alias cls="clear"
+alias clsl="clear && ls"
+alias mkdp='mkdir -p "$0" && cd "$0"'
+alias rg="rg --hidden"
