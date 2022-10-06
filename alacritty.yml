@@ -1,0 +1,165 @@
+colors:
+  primary:
+    background: '#1E1E2E'
+    foreground: '#CDD6F4'
+    bright_foreground: '#CDD6F4'
+    dim_foreground: '#CDD6F4'
+    dim_background: '0x1f1f1f'
+    bright_background: '0x686868'
+  normal:
+    black: '#45475A'
+    red: '#F38BA8'
+    green: '#A6E3A1'
+    yellow: '#F9E2AF'
+    blue: '#89B4FA'
+    magenta: '#F5C2E7'
+    cyan: '#94E2D5'
+    white: '#BAC2DE'
+  bright:
+    black: '#585B70'
+    red: '#F38BA8'
+    green: '#A6E3A1'
+    yellow: '#F9E2AF'
+    blue: '#89B4FA'
+    magenta: '#F5C2E7'
+    cyan: '#94E2D5'
+    white: '#A6ADC8'
+  dim:
+    black: '#45475A'
+    red: '#F38BA8'
+    green: '#A6E3A1'
+    yellow: '#F9E2AF'
+    blue: '#89B4FA'
+    magenta: '#F5C2E7'
+    cyan: '#94E2D5'
+    white: '#BAC2DE'
+  indexed_colors:
+    - index: 16
+      color: '0x000000'
+    - index: 16
+      color: '0x000000'
+    - index: 16
+      color: '0x000000'
+    - index: 16
+      color: '#FE640B'
+    - index: 17
+      color: '#DC8A78'
+    - index: 16
+      color: '#F5A97F'
+    - index: 17
+      color: '#F4DBD6'
+    - index: 16
+      color: '#EF9F76'
+    - index: 17
+      color: '#F2D5CF'
+    - index: 16
+      color: '#FAB387'
+    - index: 17
+      color: '#F5E0DC'
+    - index: 16
+      color: '#FAB387'
+    - index: 17
+      color: '#F5E0DC'
+    - index: 16
+      color: '#FAB387'
+    - index: 17
+      color: '#F5E0DC'
+  cursor:
+    text: '#1E1E2E'
+    cursor: '#F5E0DC'
+  search:
+    matches:
+      foreground: '#1E1E2E'
+      background: '#A6ADC8'
+    focused_match:
+      foreground: '#1E1E2E'
+      background: '#A6E3A1'
+    footer_bar:
+      foreground: '#1E1E2E'
+      background: '#A6ADC8'
+  vi_mode_cursor:
+    text: '#1E1E2E'
+    cursor: '#B4BEFE'
+  hints:
+    start:
+      foreground: '#1E1E2E'
+      background: '#F9E2AF'
+    end:
+      foreground: '#1E1E2E'
+      background: '#A6ADC8'
+  selection:
+    text: '#1E1E2E'
+    background: '#F5E0DC'
+key_bindings:
+  - key: Return
+    mods: Control|Shift
+    action: SpawnNewInstance
+  - key: I
+    mods: Control
+    chars: "\e[105;5u"
+window.opacity: 1
+window:
+  padding:
+    x: 2
+    'y': 5
+  dimensions:
+    columns: 100
+    lines: 40
+font:
+  normal:
+    family: Iosevka
+    style: Semibold
+  size: 30
+live_config_reload: true
+dynamic_padding: true
+shell:
+  program: /bin/zsh
+primary:
+  background: '#282c34'
+  foreground: '#d8dee9'
+  dim_foreground: '#282c34'
+cursor:
+  text: '#2e3440'
+  cursor: '#d8dee9'
+vi_mode_cursor:
+  text: '#2e3440'
+  cursor: '#d8dee9'
+selection:
+  text: CellForeground
+  background: '#4c566a'
+search:
+  matches:
+    foreground: CellBackground
+    background: '#88c0d0'
+  bar:
+    background: '#434c5e'
+    foreground: '#d8dee9'
+normal:
+  black: '#434c5e'
+  red: '#f9929b'
+  green: '#98c379'
+  yellow: '#ebcb8b'
+  blue: '#81a1c1'
+  magenta: '#b48ead'
+  cyan: '#88c0d0'
+  white: '#d8dee9'
+bright:
+  black: '#4c566a'
+  red: '#bf616a'
+  green: '#8fbcbb'
+  yellow: '#fbdf90'
+  blue: '#81a1c1'
+  magenta: '#d2b8ed'
+  cyan: '#8fbcbb'
+  white: '#d8dee9'
+dim:
+  black: '#373e4d'
+  red: '#94545d'
+  green: '#809575'
+  yellow: '#b29e75'
+  blue: '#68809a'
+  magenta: '#8c738c'
+  cyan: '#6d96a5'
+  white: '#aeb3bb'
+env:
+  TERM: xterm-256color

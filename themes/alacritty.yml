@@ -1,0 +1,22 @@
+key_bindings:
+    - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }
+    # https://github.com/neovim/neovim/issues/17867#issuecomment-1089826204
+    - { key: I, mods: Control, chars: "\x1b[105;5u" }
+window.opacity: 1.00
+window:
+  padding:
+    x: 2
+    y: 5
+  dimensions:
+    columns: 100
+    lines: 40
+font:
+  normal:
+    family: JetBrainsMono Nerd Font
+    # family: CascadiaMonoPL
+    style: Regular
+  size: 14
+live_config_reload: true
+dynamic_padding: true
+shell:
+   program: /bin/zsh

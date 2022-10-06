@@ -414,10 +414,10 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
 # From dt's dotfiles: https://gitlab.com/dwt1/dotfiles/-/blob/master/.zshrc
-alias ls='exa -al --color=always --group-directories-first'  # my preferred listing
-alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first'  # long format
-alias lt='exa -aT --color=always --group-directories-first'  # tree listing
+alias es='exa -al --color=always --group-directories-first'  # my preferred listing
+alias ea='exa -a --color=always --group-directories-first'  # all files and dirs
+alias el='exa -l --color=always --group-directories-first'  # long format
+alias et='exa -aT --color=always --group-directories-first'  # tree listing
 
 alias cls="clear"
 alias clsl="clear && ls"
