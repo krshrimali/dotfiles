@@ -6,7 +6,17 @@ The dotfiles I use.
 tmux, zsh (+ oh-my-zsh), alacritty, neovim
 ```
 
-**Distribution**: Endeavour OS
+## Installation
+
+Make sure to install the following
+
+1. [fd](https://github.com/sharkdp/fd#installation) - on debian based OS, you might have to do: `ln -s $(which fdfind) ~/.local/bin/fd`
+2. [bat](https://github.com/sharkdp/bat)
+3. [tmux](https://github.com/tmux/tmux)
+4. `tree`, if using `apt`: `sudo apt install tree`
+5. [fzf](https://github.com/junegunn/fzf)
+
+**Distribution**: Endeavour OS - PC and Pop OS (22.04) - Laptop
 
 Configurations:
 
