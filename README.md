@@ -15,6 +15,7 @@ Make sure to install the following
 3. [tmux](https://github.com/tmux/tmux)
 4. `tree`, if using `apt`: `sudo apt install tree`
 5. [fzf](https://github.com/junegunn/fzf)
+6. [ats](https://github.com/tichopad/alacritty-theme-switch): can just do `npm install -g alacritty-theme-switch`
 
 **Distribution**: Endeavour OS - PC and Pop OS (22.04) - Laptop
 
