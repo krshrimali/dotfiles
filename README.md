@@ -17,6 +17,7 @@ Make sure to install the following
 5. [fzf](https://github.com/junegunn/fzf)
 6. [ats](https://github.com/tichopad/alacritty-theme-switch): can just do `npm install -g alacritty-theme-switch`
 7. [lazygit](https://github.com/jesseduffield/lazygit) -> you may need [homebrew](https://brew.sh/) for this if you are on Linux.
+8. [autojump](https://github.com/wting/autojump) -- optional
 
 ## Notes
 
