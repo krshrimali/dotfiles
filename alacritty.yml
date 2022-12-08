@@ -105,11 +105,12 @@ window:
   dimensions:
     columns: 100
     lines: 40
+  decorations: "None"
 font:
   normal:
     family: Iosevka
     style: Semibold
-  size: 30
+  size: 18
 live_config_reload: true
 dynamic_padding: true
 shell:
