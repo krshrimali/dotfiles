@@ -129,12 +129,6 @@ function conda_activate_env() {
   conda activate "$(conda info --envs | fzf | awk '{print $1}')"
 }
 
-function gc_msg() {
-  echo -n "Commit message: "
-  read msg
-  git commit -m "$msg"
-}
-
 # Anaconda aliases
 alias coa="conda_activate;"
 # alias coae="conda_activate_env;"
@@ -147,7 +141,6 @@ alias gp="git push"
 alias gpl="git pull"
 alias gco="git commit"
 alias gc="git clone"
-alias gcm="gc_msg;"
 alias glp="fzf | git log -p"
 alias glo="fzf | git log --oneline"
 
