@@ -100,22 +100,19 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # >>> conda initialize >>>
-# This helper function will allow to activate conda env on demand
-function conda_activate() {
-  # !! Contents within this block are managed by 'conda init' !!
-  __conda_setup="$('/home/krshrimali/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/home/krshrimali/anaconda3/etc/profile.d/conda.sh" ]; then
-          . "/home/krshrimali/anaconda3/etc/profile.d/conda.sh"
-      else
-          export PATH="/home/krshrimali/anaconda3/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
-}
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/krshrimali/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/krshrimali/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/krshrimali/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/krshrimali/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 function conda_activate_env() {
   __conda_setup="$('/home/krshrimali/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -123,9 +120,9 @@ function conda_activate_env() {
       eval "$__conda_setup"
   else
       if [ -f "/home/krshrimali/anaconda3/etc/profile.d/conda.sh" ]; then
-          . "/home/krshrimali/anaconda3/etc/profile.d/conda.sh"
+# . "/home/krshrimali/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
       else
-          export PATH="/home/krshrimali/anaconda3/bin:$PATH"
+# export PATH="/home/krshrimali/anaconda3/bin:$PATH"  # commented out by conda initialize
       fi
   fi
   unset __conda_setup
@@ -144,15 +141,15 @@ alias coa="conda_activate;"
 alias coae="conda_activate_env;"
 alias cod="conda deactivate"
 
-# # # Git aliases
+# Git aliases
 alias gap="git add -p"
 alias gp="git push"
 alias gpl="git pull"
 alias gco="git commit"
 alias gc="git clone"
 alias gcm="gc_msg;"
-alias glp="git log -p"
-alias glo="git log --oneline"
+alias glp="fzf | git log -p"
+alias glo="fzf | git log --oneline"
 
 # # # fzf alias: credits: https://www.youtube.com/shorts/CEt5rCcFg4g
 # # alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
@@ -163,7 +160,7 @@ if [ "$TMUX" = "" ]; then tmux; fi
 # TODO: @krshrimali: check if lazygit is installed, then only run this, also raise a warning
 alias lg="lazygit"
 
-export EDITOR="/usr/local/bin/nvim"
+export EDITOR="/usr/bin/nvim"
 export VISUAL=$EDITOR
 
 export PATH=~/.local/bin:$PATH
