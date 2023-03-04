@@ -7,7 +7,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="geoffgarside"
+# ZSH_THEME="geoffgarside"
+# ZSH_THEME="josh"
+ZSH_THEME="agnoster"
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -147,13 +150,13 @@ alias glo="fzf | git log --oneline"
 # # # fzf alias: credits: https://www.youtube.com/shorts/CEt5rCcFg4g
 # # alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
 
-if [ "$TMUX" = "" ]; then tmux; fi
+# if [ "$TMUX" = "" ]; then tmux; fi
 
 # Alias for lazygit
 # TODO: @krshrimali: check if lazygit is installed, then only run this, also raise a warning
 alias lg="lazygit"
 
-export EDITOR="/usr/bin/nvim"
+export EDITOR="/home/linuxbrew/.linuxbrew/bin/nvim"
 export VISUAL=$EDITOR
 
 export PATH=~/.local/bin:$PATH
@@ -391,17 +394,13 @@ fcs() {
 #   done
 # }
 
-# # Autojump: https://github.com/wting/autojump
-[[ -s /home/krshrimali/.autojump/etc/profile.d/autojump.sh ]] && source /home/krshrimali/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
-
 # # # Forgit
 # # # [ -f ~/.forgit/forgit.plugin.zsh ] && source ~/.forgit/forgit.plugin.zsh
 
 # # # export FZF_DEFAULT_COMMAND='fd --type f --color=never --hidden'
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
 
 # From dt's dotfiles: https://gitlab.com/dwt1/dotfiles/-/blob/master/.zshrc
 alias es='exa -al --color=always --group-directories-first'  # my preferred listing
@@ -413,3 +412,14 @@ alias cls="clear"
 alias clsl="clear && ls"
 alias mkdp='mkdir -p "$0" && cd "$0"'
 alias rg="rg --hidden"
+
+export PATH="/home/linuxbrew/.linuxbrew/bin/:$PATH"
+alias python="python3"
+
+[[ -s /home/krshrimali/.autojump/etc/profile.d/autojump.sh ]] && source /home/krshrimali/.autojump/etc/profile.d/autojump.sh
+
+        autoload -U compinit && compinit -u
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias bat="batcat"
+export PATH=~/.local/kitty.app/bin/:$PATH
