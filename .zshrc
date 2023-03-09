@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="geoffgarside"
 # ZSH_THEME="josh"
-ZSH_THEME="agnoster"
+ZSH_THEME="josh"
 
 
 # Set list of themes to pick from when loading at random
