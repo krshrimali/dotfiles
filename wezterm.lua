@@ -16,9 +16,9 @@ for i = 1, 8 do
 	})
 end
 
-table.insert(mykeys, { key = "c", mods = "ALT", action = act.ActivateCopyMode })
+table.insert(mykeys, { key = "c", mods = "SHIFT|ALT", action = act.ActivateCopyMode })
 
-table.insert(mykeys, { key = "q", mods = "ALT", action = act.QuickSelect })
+-- table.insert(mykeys, { key = "q", mods = "ALT", action = act.QuickSelect })
 
 table.insert(mykeys, { key = "s", mods = "ALT", action = act.Search({ CaseSensitiveString = "" }) })
 
@@ -43,13 +43,69 @@ table.insert(mykeys, { key = "j", mods = "ALT|SHIFT", action = act({ AdjustPaneS
 table.insert(mykeys, { key = "k", mods = "ALT|SHIFT", action = act({ AdjustPaneSize = { "Up", 1 } }) })
 table.insert(mykeys, { key = "l", mods = "ALT|SHIFT", action = act({ AdjustPaneSize = { "Right", 1 } }) })
 
-config.font = wezterm.font("Jetbrains Mono", { weight = "Medium", italic = false, stretch = "Normal" })
-config.font_size = 16.0
+config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
+-- config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
+config.font_size = 20.0
 
-config.window_background_opacity = 0.90
+
 config.scrollback_lines = 10000
 config.exit_behavior = "Close"
 config.keys = mykeys
 config.default_cursor_style = "BlinkingUnderline"
+-- config.color_scheme = scheme_for_appearance(get_appearance())
+
+-- wezterm.gui is not available to the mux server, so take care to
+-- do something reasonable when this config is evaluated by the mux
+function get_appearance()
+	if wezterm.gui then
+		return wezterm.gui.get_appearance()
+	end
+	return "Dark"
+end
+
+function scheme_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return "Builtin Solarized Dark"
+	else
+		return "Builtin Solarized Light"
+	end
+end
+
+-- The filled in variant of the < symbol
+local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
+
+-- The filled in variant of the > symbol
+local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+
+-- config.tab_bar_style = {
+--   new_tab_left = wezterm.format {
+--     { Background = { Color = '#0b0022' } },
+--     { Foreground = { Color = '#2b2042' } },
+--     { Text = SOLID_LEFT_ARROW },
+--   },
+--   new_tab_right = wezterm.format {
+--     { Background = { Color = '#0b0022' } },
+--     { Foreground = { Color = '#2b2042' } },
+--     { Text = SOLID_RIGHT_ARROW },
+--   },
+--   new_tab_hover_left = wezterm.format {
+--     { Background = { Color = '#0b0022' } },
+--     { Foreground = { Color = '#1b1032' } },
+--     { Text = SOLID_LEFT_ARROW },
+--   },
+--   new_tab_hover_right = wezterm.format {
+--     { Background = { Color = '#0b0022' } },
+--     { Foreground = { Color = '#1b1032' } },
+--     { Text = SOLID_RIGHT_ARROW },
+--   },
+-- }
+
+config.color_scheme = scheme_for_appearance(get_appearance())
+config.hide_tab_bar_if_only_one_tab = true
+config.send_composed_key_when_left_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = false
+
+config.window_background_opacity = 0.89
+config.macos_window_background_blur = 30
 
 return config
