@@ -1,6 +1,6 @@
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /opt/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+# eval /opt/anaconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
 alias gap "git add -p"
@@ -280,7 +280,6 @@ end
 
 alias rg "rg --hidden"
 
-<<<<<<< HEAD
 set -xg PATH "/home/linuxbrew/.linuxbrew/bin/" $PATH
 # alias bat "batcat"
 
@@ -516,4 +515,4 @@ git config --add oh-my-zsh.hide-dirty 1
 alias z "zoxide query"
 alias j "zoxide query"
 # starship init fish | source
-source $SOURCE/.venv/bin/activate.fish
+# source $SOURCE/.venv/bin/activate.fish
