@@ -503,16 +503,18 @@ functions -e fish_right_prompt; function fish_prompt --description 'Informative 
     end
 end
 
-starship init fish | source
+# starship init fish | source
 set -x PATH "/opt/homebrew/bin/" $PATH
 alias bat "batcat"
 set -x SOURCE "$HOME/Documents/Projects/Abnormal/copy/source"
 set -x VENV "$SOURCE/.venv"
 set -x PATH "$SOURCE/tools/dev" $PATH
 
-git config --add oh-my-zsh.hide-status 1
-git config --add oh-my-zsh.hide-dirty 1
-alias z "zoxide query"
-alias j "zoxide query"
+# git config --add oh-my-zsh.hide-status 1
+# git config --add oh-my-zsh.hide-dirty 1
+# alias z "zoxide query"
+# alias j "zoxide query"
 # starship init fish | source
 # source $SOURCE/.venv/bin/activate.fish
+
+set PATH $HOME/.cargo/bin $PATH
