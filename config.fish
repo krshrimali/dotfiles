@@ -1,6 +1,6 @@
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /opt/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+# eval /opt/anaconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
 alias gap "git add -p"
@@ -13,7 +13,7 @@ alias glo "fzf | git log --oneline"
 
 alias lg lazygit
 
-set -xg EDITOR "/opt/homebrew/bin/nvim"
+set -xg EDITOR "/home/linuxbrew/.linuxbrew/bin//nvim"
 set -xg VISUAL $EDITOR
 set -xg PATH ~/.local/bin $PATH
 
@@ -280,15 +280,241 @@ end
 
 alias rg "rg --hidden"
 
+set -xg PATH "/home/linuxbrew/.linuxbrew/bin/" $PATH
+# alias bat "batcat"
+
+# git config --add oh-my-zsh.hide-status 1
+# git config --add oh-my-zsh.hide-dirty 1
+zoxide init fish | source
+alias j "zoxide"
+# starship init fish | source
+
+functions -e fish_right_prompt; function fish_prompt -d "Write out the prompt"
+    set -l laststatus $status
+
+    set -l git_info
+    if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ '')
+        set git_branch (set_color -o blue)"$git_branch"
+        set -l git_status
+        if not command git diff-index --quiet HEAD --
+            if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
+                echo $count | read -l ahead behind
+                if test "$ahead" -gt 0
+                    set git_status "$git_status"(set_color red)⬆
+                end
+                if test "$behind" -gt 0
+                    set git_status "$git_status"(set_color red)⬇
+                end
+            end
+            for i in (git status --porcelain | string sub -l 2 | sort | uniq)
+                switch $i
+                    case "."
+                        set git_status "$git_status"(set_color green)✚
+                    case " D"
+                        set git_status "$git_status"(set_color red)✖
+                    case "*M*"
+                        set git_status "$git_status"(set_color green)✱
+                    case "*R*"
+                        set git_status "$git_status"(set_color purple)➜
+                    case "*U*"
+                        set git_status "$git_status"(set_color brown)═
+                    case "??"
+                        set git_status "$git_status"(set_color red)≠
+                end
+            end
+        else
+            set git_status (set_color green):
+        end
+        set git_info "(git$git_status$git_branch"(set_color white)")"
+    end
+
+    # Disable PWD shortening by default.
+    set -q fish_prompt_pwd_dir_length
+    or set -lx fish_prompt_pwd_dir_length 0
+
+    set_color -b black
+    printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
+    if test $laststatus -eq 0
+        printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
+    else
+        printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
+    end
+end
+# funcsave fish_prompt && funcsave fish_right_prompt 2>/dev/null
+
+functions -e fish_right_prompt; function fish_prompt
+    # This prompt shows:
+    # - green lines if the last return command is OK, red otherwise
+    # - your user name, in red if root or yellow otherwise
+    # - your hostname, in cyan if ssh or blue otherwise
+    # - the current path (with prompt_pwd)
+    # - date +%X
+    # - the current virtual environment, if any
+    # - the current git status, if any, with fish_git_prompt
+    # - the current battery state, if any, and if your power cable is unplugged, and if you have "acpi"
+    # - current background jobs, if any
+
+    # It goes from:
+    # ┬─[nim@Hattori:~]─[11:39:00]
+    # ╰─>$ echo here
+
+    # To:
+    # ┬─[nim@Hattori:~/w/dashboard]─[11:37:14]─[V:django20]─[G:master↑1|●1✚1…1]─[B:85%, 05:41:42 remaining]
+    # │ 2    15054    0%    arrêtée    sleep 100000
+    # │ 1    15048    0%    arrêtée    sleep 100000
+    # ╰─>$ echo there
+
+    set -l retc red
+    test $status = 0; and set retc green
+
+    set -q __fish_git_prompt_showupstream
+    or set -g __fish_git_prompt_showupstream auto
+
+    function _nim_prompt_wrapper
+        set retc $argv[1]
+        set -l field_name $argv[2]
+        set -l field_value $argv[3]
+
+        set_color normal
+        set_color $retc
+        echo -n '─'
+        set_color -o green
+        echo -n '['
+        set_color normal
+        test -n $field_name
+        and echo -n $field_name:
+        set_color $retc
+        echo -n $field_value
+        set_color -o green
+        echo -n ']'
+    end
+
+    set_color $retc
+    echo -n '┬─'
+    set_color -o green
+    echo -n [
+
+    if functions -q fish_is_root_user; and fish_is_root_user
+        set_color -o red
+    else
+        set_color -o yellow
+    end
+
+    echo -n $USER
+    set_color -o white
+    echo -n @
+
+    if test -z "$SSH_CLIENT"
+        set_color -o blue
+    else
+        set_color -o cyan
+    end
+
+    echo -n (prompt_hostname)
+    set_color -o white
+    echo -n :(prompt_pwd)
+    set_color -o green
+    echo -n ']'
+
+    # Date
+    _nim_prompt_wrapper $retc '' (date +%X)
+
+    # Vi-mode
+    # The default mode prompt would be prefixed, which ruins our alignment.
+    function fish_mode_prompt
+    end
+
+    if test "$fish_key_bindings" = fish_vi_key_bindings
+        or test "$fish_key_bindings" = fish_hybrid_key_bindings
+        set -l mode
+        switch $fish_bind_mode
+            case default
+                set mode (set_color --bold red)N
+            case insert
+                set mode (set_color --bold green)I
+            case replace_one
+                set mode (set_color --bold green)R
+                echo '[R]'
+            case replace
+                set mode (set_color --bold cyan)R
+            case visual
+                set mode (set_color --bold magenta)V
+        end
+        set mode $mode(set_color normal)
+        _nim_prompt_wrapper $retc '' $mode
+    end
+
+
+    # Virtual Environment
+    set -q VIRTUAL_ENV_DISABLE_PROMPT
+    or set -g VIRTUAL_ENV_DISABLE_PROMPT true
+    set -q VIRTUAL_ENV
+    and _nim_prompt_wrapper $retc V (basename "$VIRTUAL_ENV")
+
+    # git
+    set -l prompt_git (fish_git_prompt '%s')
+    test -n "$prompt_git"
+    and _nim_prompt_wrapper $retc G $prompt_git
+
+    # Battery status
+    type -q acpi
+    and test (acpi -a 2> /dev/null | string match -r off)
+    and _nim_prompt_wrapper $retc B (acpi -b | cut -d' ' -f 4-)
+
+    # New line
+    echo
+
+    # Background jobs
+    set_color normal
+
+    for job in (jobs)
+        set_color $retc
+        echo -n '│ '
+        set_color brown
+        echo $job
+    end
+
+    set_color normal
+    set_color $retc
+    echo -n '╰─>'
+    set_color -o red
+    echo -n '$ '
+    set_color normal
+end
+
+functions -e fish_right_prompt; function fish_prompt --description 'Informative prompt'
+    #Save the return status of the previous command
+    set -l last_pipestatus $pipestatus
+    set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
+
+    if functions -q fish_is_root_user; and fish_is_root_user
+        printf '%s@%s %s%s%s# ' $USER (prompt_hostname) (set -q fish_color_cwd_root
+                                                         and set_color $fish_color_cwd_root
+                                                         or set_color $fish_color_cwd) \
+            (prompt_pwd) (set_color normal)
+    else
+        set -l status_color (set_color $fish_color_status)
+        set -l statusb_color (set_color --bold $fish_color_status)
+        set -l pipestatus_string (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
+
+        printf '[%s] %s%s@%s %s%s %s%s%s \n> ' (date "+%H:%M:%S") (set_color brblue) \
+            $USER (prompt_hostname) (set_color $fish_color_cwd) $PWD $pipestatus_string \
+            (set_color normal)
+    end
+end
+
+# starship init fish | source
 set -x PATH "/opt/homebrew/bin/" $PATH
 alias bat "batcat"
 set -x SOURCE "$HOME/Documents/Projects/Abnormal/copy/source"
 set -x VENV "$SOURCE/.venv"
 set -x PATH "$SOURCE/tools/dev" $PATH
 
-git config --add oh-my-zsh.hide-status 1
-git config --add oh-my-zsh.hide-dirty 1
-alias z "zoxide query"
-alias j "zoxide query"
+# git config --add oh-my-zsh.hide-status 1
+# git config --add oh-my-zsh.hide-dirty 1
+# alias z "zoxide query"
+# alias j "zoxide query"
 # starship init fish | source
-source $SOURCE/.venv/bin/activate.fish
+# source $SOURCE/.venv/bin/activate.fish
+
+set PATH $HOME/.cargo/bin $PATH
