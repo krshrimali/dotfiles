@@ -35,7 +35,6 @@ local function lightThemeCycler(window, _)
 		end
 	end
 
-
 	local randomIndex = math.random(#lightSchemes)
 	local overrides = window:get_config_overrides() or {}
 	overrides.color_scheme = lightSchemes[randomIndex]
@@ -84,8 +83,8 @@ table.insert(mykeys, { key = "h", mods = "CTRL|SHIFT|ALT", action = act({ Adjust
 table.insert(mykeys, { key = "j", mods = "CTRL|SHIFT|ALT", action = act({ AdjustPaneSize = { "Down", 3 } }) })
 table.insert(mykeys, { key = "k", mods = "CTRL|SHIFT|ALT", action = act({ AdjustPaneSize = { "Up", 3 } }) })
 table.insert(mykeys, { key = "l", mods = "CTRL|SHIFT|ALT", action = act({ AdjustPaneSize = { "Right", 3 } }) })
-table.insert(mykeys, { key = "t", mods = "CTRL|ALT", action = wezterm.action_callback(themeCycler) })
-table.insert(mykeys, { key = "f", mods = "CTRL|ALT", action = wezterm.action_callback(lightThemeCycler) })
+table.insert(mykeys, { key = "u", mods = "CTRL|ALT", action = wezterm.action_callback(themeCycler) })
+table.insert(mykeys, { key = "l", mods = "CTRL|ALT", action = wezterm.action_callback(lightThemeCycler) })
 table.insert(mykeys, { key = "Escape", mods = "CTRL", action = wezterm.action.ShowDebugOverlay })
 
 config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
