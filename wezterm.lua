@@ -86,11 +86,13 @@ table.insert(mykeys, { key = "l", mods = "CTRL|SHIFT|ALT", action = act({ Adjust
 table.insert(mykeys, { key = "u", mods = "CTRL|ALT", action = wezterm.action_callback(themeCycler) })
 table.insert(mykeys, { key = "l", mods = "CTRL|ALT", action = wezterm.action_callback(lightThemeCycler) })
 table.insert(mykeys, { key = "Escape", mods = "CTRL", action = wezterm.action.ShowDebugOverlay })
+table.insert(mykeys, { key = 'v', mods = 'CTRL', action = act.PasteFrom 'Clipboard' })
 
-config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
--- config.line_height = 1.10
-config.line_height = 1.00
+-- config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
+config.font = wezterm.font("Iosevka Nerd Font", { weight = "Medium", italic = false, stretch = "Normal" })
+config.line_height = 1.10
 config.cell_width = 1.07
+
 -- config.font =
 -- 	wezterm.font("DankMono Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal", italic = false }) -- /Library/Fonts/DankMonoNerdFont-Regular.ttf, CoreText
 -- config.font =
@@ -103,6 +105,7 @@ config.scrollback_lines = 10000
 config.exit_behavior = "Close"
 config.keys = mykeys
 config.default_cursor_style = "BlinkingUnderline"
+config.default_domain = "WSL:Ubuntu"
 -- config.color_scheme = scheme_for_appearance(get_appearance())
 
 -- wezterm.gui is not available to the mux server, so take care to
@@ -157,7 +160,7 @@ config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 
 config.window_background_opacity = 1.0
-config.macos_window_background_blur = 50
+config.macos_window_background_blur = 100
 -- config.color_scheme = "Catppuccin Mocha"
 -- config.color_scheme = 'Gruvbox Dark (Gogh)'
 -- config.color_scheme = 'Gruvbox dark, medium (base16)'
