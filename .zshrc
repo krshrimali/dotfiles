@@ -331,6 +331,12 @@ set_oh_my_zsh_git_config() {
   fi
 }
 
+alias wez="nvim ~/.config/wezterm/wezterm.lua"
+alias nc="nvim ~/.config/nvim/"
+
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+
 DISABLE_MAGIC_FUNCTIONS=true
 
 # Call the function
