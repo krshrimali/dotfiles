@@ -31,7 +31,7 @@ alias glo="fzf | git log --oneline"
 # TODO: @krshrimali: check if lazygit is installed, then only run this, also raise a warning
 alias lg="lazygit"
 
-export EDITOR="/opt/homebrew/bin/nvim"
+export EDITOR="/home/linuxbrew/.linuxbrew/bin/nvim"
 export VISUAL=$EDITOR
 
 export PATH=~/.local/bin:$PATH
@@ -289,7 +289,7 @@ alias clsl="clear && ls"
 alias mkdp='mkdir -p "$0" && cd "$0"'
 alias rg="rg --hidden"
 
-export PATH="/opt/homebrew/bin/:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 # alias python="python3"
 # alias python3="python"
 
@@ -302,7 +302,7 @@ export PATH=~/.local/kitty.app/bin/:$PATH
 export SOURCE="$HOME/Documents/Projects/Abnormal/copy/source"
 export VENV="$SOURCE/.venv"
 alias venv-activate="source $SOURCE/tools/dev/venv-activate"
-source $SOURCE/tools/dev/common_bash_includes
+# source $SOURCE/tools/dev/common_bash_includes
 # source "$VENV/bin/activate.fish"
 
 # export ZPLUG_HOME=/opt/homebrew/opt/zplug
@@ -311,8 +311,8 @@ source $SOURCE/tools/dev/common_bash_includes
 # zellij
 # venv-activate
 # export python3="/Users/krshrimali/Documents/Projects/Abnormal/copy/source/.venv/bin/python3"
-git config --add oh-my-zsh.hide-status 1
-git config --add oh-my-zsh.hide-dirty 1
+# git config --local oh-my-zsh.hide-status 1
+# git config --local oh-my-zsh.hide-dirty 1
 
 alias z="zoxide
 alias j="zoxide
@@ -321,3 +321,17 @@ alias wez="nvim ~/.config/wezterm/wezterm.lua"
 alias nc="nvim ~/.config/nvim/"
 
 # eval "$(zellij setup --generate-auto-start zsh)"
+eval "$(zoxide init zsh)"
+
+# Function to set Oh My Zsh Git configurations if the current directory is a Git repository
+set_oh_my_zsh_git_config() {
+  if [[ -n $(git rev-parse --is-inside-work-tree 2>/dev/null) ]]; then
+    git config --add oh-my-zsh.hide-status 1
+    git config --add oh-my-zsh.hide-dirty 1
+  fi
+}
+
+DISABLE_MAGIC_FUNCTIONS=true
+
+# Call the function
+set_oh_my_zsh_git_config
