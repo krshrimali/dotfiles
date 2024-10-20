@@ -1,0 +1,10 @@
+# This is a light theme example
+[colors]
+primary_background = "#FDF6E3"
+primary_foreground = "#657B83"
+status_bar_background = "#EEE8D5"
+status_bar_foreground = "#268BD2"
+tab_active_background = "#EEE8D5"
+tab_inactive_background = "#FDF6E3"
+tab_active_foreground = "#268BD2"
+tab_inactive_foreground = "#657B83"

@@ -1,0 +1,10 @@
+# This is a dark theme example
+[colors]
+primary_background = "#1D1F21"
+primary_foreground = "#C5C8C6"
+status_bar_background = "#282A2E"
+status_bar_foreground = "#F0C674"
+tab_active_background = "#282A2E"
+tab_inactive_background = "#1D1F21"
+tab_active_foreground = "#F0C674"
+tab_inactive_foreground = "#C5C8C6"
