@@ -373,21 +373,28 @@ themes {
 
 // Plugin aliases - can be used to change the implementation of Zellij
 // changing these requires a restart to take effect
+// plugins {
+//     about location="zellij:about"
+//     compact-bar location="zellij:compact-bar"
+//     configuration location="zellij:configuration"
+//     filepicker location="zellij:strider" {
+//         cwd "/"
+//     }
+//     plugin-manager location="zellij:plugin-manager"
+//     session-manager location="zellij:session-manager"
+//     status-bar location="zellij:status-bar"
+//     strider location="zellij:strider"
+//     tab-bar location="zellij:tab-bar"
+//     welcome-screen location="zellij:session-manager" {
+//         welcome_screen true
+//     }
+// }
+
 plugins {
-    about location="zellij:about"
-    compact-bar location="zellij:compact-bar"
-    configuration location="zellij:configuration"
-    filepicker location="zellij:strider" {
-        cwd "/"
-    }
-    plugin-manager location="zellij:plugin-manager"
-    session-manager location="zellij:session-manager"
-    status-bar location="zellij:status-bar"
+    tab-bar location="zellij:compact-bar"
+    status-bar location="zellij:compact-bar" 
     strider location="zellij:strider"
-    tab-bar location="zellij:tab-bar"
-    welcome-screen location="zellij:session-manager" {
-        welcome_screen true
-    }
+    compact-bar location="zellij:compact-bar"
 }
 
 // Plugins to load in the background when a new session starts
@@ -401,12 +408,30 @@ load_plugins {
 //   - true
 //   - false (Default)
 // 
-simplified_ui false
+simplified_ui true
  
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-theme "catppuccin-mocha"
+// theme "catppuccin-mocha"
+// Custom theme without icons
+themes {
+    plain {
+        fg "#D8DEE9"
+        bg "#2E3440" 
+        black "#3B4252"
+        red "#BF616A"
+        green "#A3BE8C"
+        yellow "#EBCB8B"
+        blue "#81A1C1"
+        magenta "#B48EAD"
+        cyan "#88C0D0"
+        white "#E5E9F0"
+        orange "#D08770"
+    }
+}
+
+theme "plain"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -451,7 +476,13 @@ mouse_mode true
 //   - true (default, enabled)
 //   - false
 // 
-// pane_frames false
+pane_frames false
+ui {
+    pane_frames {
+        rounded_corners false
+        hide_session_name false
+    }
+}
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
