@@ -1,0 +1,421 @@
+bind --preset -M insert \cy yank
+bind --preset -M insert \ey yank-pop
+bind --preset -M insert -k right forward-char
+bind --preset -M insert -k left backward-char
+bind --preset -M insert \e\[C forward-char
+bind --preset -M insert \e\[D backward-char
+bind --preset -M insert \e\[1\;5C forward-word
+bind --preset -M insert \e\[1\;5D backward-word
+bind --preset -M insert -k ppage beginning-of-history
+bind --preset -M insert -k npage end-of-history
+bind --preset -M insert \cx fish_clipboard_copy
+bind --preset -M insert \cv fish_clipboard_paste
+bind --preset -M insert \e 'if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char repaint-mode; end'
+bind --preset -M insert \t complete
+bind --preset -M insert \cs pager-toggle-search
+bind --preset -M insert -k btab complete-and-search
+bind --preset -M insert \e\n commandline\ -f\ expand-abbr\;\ commandline\ -i\ \\n
+bind --preset -M insert \e\r commandline\ -f\ expand-abbr\;\ commandline\ -i\ \\n
+bind --preset -M insert -k down down-or-search
+bind --preset -M insert -k up up-or-search
+bind --preset -M insert \e\[A up-or-search
+bind --preset -M insert \e\[B down-or-search
+bind --preset -M insert -k sright forward-bigword
+bind --preset -M insert -k sleft backward-bigword
+bind --preset -M insert \e\eOC nextd-or-forward-word
+bind --preset -M insert \e\eOD prevd-or-backward-word
+bind --preset -M insert \e\e\[C nextd-or-forward-word
+bind --preset -M insert \e\e\[D prevd-or-backward-word
+bind --preset -M insert \eO3C nextd-or-forward-word
+bind --preset -M insert \eO3D prevd-or-backward-word
+bind --preset -M insert \e\[3C nextd-or-forward-word
+bind --preset -M insert \e\[3D prevd-or-backward-word
+bind --preset -M insert \e\[1\;3C nextd-or-forward-word
+bind --preset -M insert \e\[1\;3D prevd-or-backward-word
+bind --preset -M insert \e\[1\;9C nextd-or-forward-word
+bind --preset -M insert \e\[1\;9D prevd-or-backward-word
+bind --preset -M insert \e\eOA history-token-search-backward
+bind --preset -M insert \e\eOB history-token-search-forward
+bind --preset -M insert \e\e\[A history-token-search-backward
+bind --preset -M insert \e\e\[B history-token-search-forward
+bind --preset -M insert \eO3A history-token-search-backward
+bind --preset -M insert \eO3B history-token-search-forward
+bind --preset -M insert \e\[3A history-token-search-backward
+bind --preset -M insert \e\[3B history-token-search-forward
+bind --preset -M insert \e\[1\;3A history-token-search-backward
+bind --preset -M insert \e\[1\;3B history-token-search-forward
+bind --preset -M insert \e\[1\;9A history-token-search-backward
+bind --preset -M insert \e\[1\;9B history-token-search-forward
+bind --preset -M insert \e. history-token-search-backward
+bind --preset -M insert \el __fish_list_current_token
+bind --preset -M insert \eo __fish_preview_current_file
+bind --preset -M insert \ew __fish_whatis_current_token
+bind --preset -M insert \cl echo\ -n\ \(clear\ \|\ string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
+bind --preset -M insert \cc cancel-commandline
+bind --preset -M insert \cu backward-kill-line
+bind --preset -M insert \cw backward-kill-path-component
+bind --preset -M insert \e\[F end-of-line
+bind --preset -M insert \e\[H beginning-of-line
+bind --preset -M insert \ed 'set -l cmd (commandline); if test -z "$cmd"; echo; dirh; commandline -f repaint; else; commandline -f kill-word; end'
+bind --preset -M insert \cd delete-or-exit
+bind --preset -M insert \es 'if command -q sudo; fish_commandline_prepend sudo; else if command -q doas; fish_commandline_prepend doas; end'
+bind --preset -M insert -k f1 __fish_man_page
+bind --preset -M insert \eh __fish_man_page
+bind --preset -M insert \ep __fish_paginate
+bind --preset -M insert \e\# __fish_toggle_comment_commandline
+bind --preset -M insert \ee edit_command_buffer
+bind --preset -M insert \ev edit_command_buffer
+bind --preset \e\[I 'emit fish_focus_in'
+bind --preset \e\[O false
+bind --preset \e\[\?1004h false
+bind --preset -M insert \e\[I 'emit fish_focus_in'
+bind --preset -M insert \e\[O false
+bind --preset -M insert \e\[\?1004h false
+bind --preset -m paste \e\[200\~ __fish_start_bracketed_paste
+bind --preset -M insert -m paste \e\[200\~ __fish_start_bracketed_paste
+bind --preset -M paste \e\[201\~ __fish_stop_bracketed_paste
+bind --preset -M paste '' self-insert
+bind --preset -M paste \r commandline\ -i\ \\n
+bind --preset -M paste \' __fish_commandline_insert_escaped\ \\\'\ \$__fish_paste_quoted
+bind --preset -M paste \\ __fish_commandline_insert_escaped\ \\\\\ \$__fish_paste_quoted
+bind --preset -M paste ' ' self-insert-notfirst
+bind --preset -M insert '' self-insert
+bind --preset -M insert ' ' self-insert expand-abbr
+bind --preset -M insert ';' self-insert expand-abbr
+bind --preset -M insert '|' self-insert expand-abbr
+bind --preset -M insert '&' self-insert expand-abbr
+bind --preset -M insert '>' self-insert expand-abbr
+bind --preset -M insert '<' self-insert expand-abbr
+bind --preset -M insert ')' self-insert expand-abbr
+bind --preset -M insert -k nul 'test -n "$(commandline)" && commandline -i " "'
+bind --preset -M insert \e\[32\;2u 'commandline -i " "; commandline -f expand-abbr'
+bind --preset -M insert \n execute
+bind --preset -M insert \r execute
+bind --preset -M insert \e\[27\;5\;13\~ execute
+bind --preset -M insert \e\[13\;5u execute
+bind --preset -M insert \e\[27\;2\;13\~ execute
+bind --preset -M insert \e\[13\;2u execute
+bind --preset \cy yank
+bind --preset \ey yank-pop
+bind --preset -k right forward-char
+bind --preset -k left backward-char
+bind --preset \e\[C forward-char
+bind --preset \e\[D backward-char
+bind --preset \e\[1\;5C forward-word
+bind --preset \e\[1\;5D backward-word
+bind --preset -k ppage beginning-of-history
+bind --preset -k npage end-of-history
+bind --preset \cx fish_clipboard_copy
+bind --preset \cv fish_clipboard_paste
+bind --preset \e cancel
+bind --preset \t complete
+bind --preset \cs pager-toggle-search
+bind --preset -k btab complete-and-search
+bind --preset \e\n commandline\ -f\ expand-abbr\;\ commandline\ -i\ \\n
+bind --preset \e\r commandline\ -f\ expand-abbr\;\ commandline\ -i\ \\n
+bind --preset -k down down-or-search
+bind --preset -k up up-or-search
+bind --preset \e\[A up-or-search
+bind --preset \e\[B down-or-search
+bind --preset -k sright forward-bigword
+bind --preset -k sleft backward-bigword
+bind --preset \e\eOC nextd-or-forward-word
+bind --preset \e\eOD prevd-or-backward-word
+bind --preset \e\e\[C nextd-or-forward-word
+bind --preset \e\e\[D prevd-or-backward-word
+bind --preset \eO3C nextd-or-forward-word
+bind --preset \eO3D prevd-or-backward-word
+bind --preset \e\[3C nextd-or-forward-word
+bind --preset \e\[3D prevd-or-backward-word
+bind --preset \e\[1\;3C nextd-or-forward-word
+bind --preset \e\[1\;3D prevd-or-backward-word
+bind --preset \e\[1\;9C nextd-or-forward-word
+bind --preset \e\[1\;9D prevd-or-backward-word
+bind --preset \e\eOA history-token-search-backward
+bind --preset \e\eOB history-token-search-forward
+bind --preset \e\e\[A history-token-search-backward
+bind --preset \e\e\[B history-token-search-forward
+bind --preset \eO3A history-token-search-backward
+bind --preset \eO3B history-token-search-forward
+bind --preset \e\[3A history-token-search-backward
+bind --preset \e\[3B history-token-search-forward
+bind --preset \e\[1\;3A history-token-search-backward
+bind --preset \e\[1\;3B history-token-search-forward
+bind --preset \e\[1\;9A history-token-search-backward
+bind --preset \e\[1\;9B history-token-search-forward
+bind --preset \e. history-token-search-backward
+bind --preset \el __fish_list_current_token
+bind --preset \eo __fish_preview_current_file
+bind --preset \ew __fish_whatis_current_token
+bind --preset \cl echo\ -n\ \(clear\ \|\ string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
+bind --preset -m insert \cc cancel-commandline repaint-mode
+bind --preset \cu backward-kill-line
+bind --preset \cw backward-kill-path-component
+bind --preset \e\[F end-of-line
+bind --preset \e\[H beginning-of-line
+bind --preset \ed 'set -l cmd (commandline); if test -z "$cmd"; echo; dirh; commandline -f repaint; else; commandline -f kill-word; end'
+bind --preset \cd delete-or-exit
+bind --preset \es 'if command -q sudo; fish_commandline_prepend sudo; else if command -q doas; fish_commandline_prepend doas; end'
+bind --preset -k f1 __fish_man_page
+bind --preset \eh __fish_man_page
+bind --preset \ep __fish_paginate
+bind --preset \e\# __fish_toggle_comment_commandline
+bind --preset \ee edit_command_buffer
+bind --preset \ev edit_command_buffer
+bind --preset -M visual \cy yank
+bind --preset -M visual \ey yank-pop
+bind --preset -M visual -k right forward-char
+bind --preset -M visual -k left backward-char
+bind --preset -M visual \e\[C forward-char
+bind --preset -M visual \e\[D backward-char
+bind --preset -M visual \e\[1\;5C forward-word
+bind --preset -M visual \e\[1\;5D backward-word
+bind --preset -M visual -k ppage beginning-of-history
+bind --preset -M visual -k npage end-of-history
+bind --preset -M visual \cx fish_clipboard_copy
+bind --preset -M visual \cv fish_clipboard_paste
+bind --preset -M visual -m default \e end-selection repaint-mode
+bind --preset -M visual \t complete
+bind --preset -M visual \cs pager-toggle-search
+bind --preset -M visual -k btab complete-and-search
+bind --preset -M visual \e\n commandline\ -f\ expand-abbr\;\ commandline\ -i\ \\n
+bind --preset -M visual \e\r commandline\ -f\ expand-abbr\;\ commandline\ -i\ \\n
+bind --preset -M visual -k down down-or-search
+bind --preset -M visual -k up up-or-search
+bind --preset -M visual \e\[A up-or-search
+bind --preset -M visual \e\[B down-or-search
+bind --preset -M visual -k sright forward-bigword
+bind --preset -M visual -k sleft backward-bigword
+bind --preset -M visual \e\eOC nextd-or-forward-word
+bind --preset -M visual \e\eOD prevd-or-backward-word
+bind --preset -M visual \e\e\[C nextd-or-forward-word
+bind --preset -M visual \e\e\[D prevd-or-backward-word
+bind --preset -M visual \eO3C nextd-or-forward-word
+bind --preset -M visual \eO3D prevd-or-backward-word
+bind --preset -M visual \e\[3C nextd-or-forward-word
+bind --preset -M visual \e\[3D prevd-or-backward-word
+bind --preset -M visual \e\[1\;3C nextd-or-forward-word
+bind --preset -M visual \e\[1\;3D prevd-or-backward-word
+bind --preset -M visual \e\[1\;9C nextd-or-forward-word
+bind --preset -M visual \e\[1\;9D prevd-or-backward-word
+bind --preset -M visual \e\eOA history-token-search-backward
+bind --preset -M visual \e\eOB history-token-search-forward
+bind --preset -M visual \e\e\[A history-token-search-backward
+bind --preset -M visual \e\e\[B history-token-search-forward
+bind --preset -M visual \eO3A history-token-search-backward
+bind --preset -M visual \eO3B history-token-search-forward
+bind --preset -M visual \e\[3A history-token-search-backward
+bind --preset -M visual \e\[3B history-token-search-forward
+bind --preset -M visual \e\[1\;3A history-token-search-backward
+bind --preset -M visual \e\[1\;3B history-token-search-forward
+bind --preset -M visual \e\[1\;9A history-token-search-backward
+bind --preset -M visual \e\[1\;9B history-token-search-forward
+bind --preset -M visual \e. history-token-search-backward
+bind --preset -M visual \el __fish_list_current_token
+bind --preset -M visual \eo __fish_preview_current_file
+bind --preset -M visual \ew __fish_whatis_current_token
+bind --preset -M visual \cl echo\ -n\ \(clear\ \|\ string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
+bind --preset -M visual -m default \cc end-selection repaint-mode
+bind --preset -M visual \cu backward-kill-line
+bind --preset -M visual \cw backward-kill-path-component
+bind --preset -M visual \e\[F end-of-line
+bind --preset -M visual \e\[H beginning-of-line
+bind --preset -M visual \ed 'set -l cmd (commandline); if test -z "$cmd"; echo; dirh; commandline -f repaint; else; commandline -f kill-word; end'
+bind --preset -M visual \cd delete-or-exit
+bind --preset -M visual \es 'if command -q sudo; fish_commandline_prepend sudo; else if command -q doas; fish_commandline_prepend doas; end'
+bind --preset -M visual -k f1 __fish_man_page
+bind --preset -M visual \eh __fish_man_page
+bind --preset -M visual \ep __fish_paginate
+bind --preset -M visual \e\# __fish_toggle_comment_commandline
+bind --preset -M visual \ee edit_command_buffer
+bind --preset -M visual \ev edit_command_buffer
+bind --preset -M visual \e\[I 'emit fish_focus_in'
+bind --preset -M visual \e\[O false
+bind --preset -M visual \e\[\?1004h false
+bind --preset -M visual -m paste \e\[200\~ __fish_start_bracketed_paste
+bind --preset :q exit
+bind --preset h backward-char
+bind --preset l forward-char
+bind --preset -m insert \n execute
+bind --preset -m insert \r execute
+bind --preset -m insert o insert-line-under repaint-mode
+bind --preset -m insert O insert-line-over repaint-mode
+bind --preset -m insert i repaint-mode
+bind --preset -m insert I beginning-of-line repaint-mode
+bind --preset -m insert a forward-single-char repaint-mode
+bind --preset -m insert A end-of-line repaint-mode
+bind --preset -m visual v begin-selection repaint-mode
+bind --preset gg beginning-of-buffer
+bind --preset G end-of-buffer
+bind --preset '$' end-of-line
+bind --preset 'g$' end-of-line
+bind --preset ^ beginning-of-line
+bind --preset 0 beginning-of-line
+bind --preset g^ beginning-of-line
+bind --preset u undo
+bind --preset \cr redo
+bind --preset '[' history-token-search-backward
+bind --preset ']' history-token-search-forward
+bind --preset / history-pager
+bind --preset k up-or-search
+bind --preset j down-or-search
+bind --preset b backward-word
+bind --preset B backward-bigword
+bind --preset ge backward-word
+bind --preset gE backward-bigword
+bind --preset w forward-word forward-single-char
+bind --preset W forward-bigword forward-single-char
+bind --preset e forward-single-char forward-word backward-char
+bind --preset E forward-bigword backward-char
+bind --preset -M insert -k home beginning-of-line
+bind --preset -k home beginning-of-line
+bind --preset -M insert -k end end-of-line
+bind --preset -k end end-of-line
+bind --preset x delete-char forward-single-char backward-char
+bind --preset X backward-delete-char
+bind --preset -M insert -k dc delete-char forward-single-char backward-char
+bind --preset -k dc delete-char forward-single-char backward-char
+bind --preset -M insert -k backspace backward-delete-char
+bind --preset -k backspace backward-char
+bind --preset -M insert \b backward-delete-char
+bind --preset \b backward-char
+bind --preset -M insert -k sdc backward-delete-char
+bind --preset -k sdc backward-delete-char
+bind --preset dd kill-whole-line
+bind --preset D kill-line
+bind --preset 'd$' kill-line
+bind --preset d^ backward-kill-line
+bind --preset d0 backward-kill-line
+bind --preset dw kill-word
+bind --preset dW kill-bigword
+bind --preset diw forward-single-char forward-single-char backward-word kill-word
+bind --preset diW forward-single-char forward-single-char backward-bigword kill-bigword
+bind --preset daw forward-single-char forward-single-char backward-word kill-word
+bind --preset daW forward-single-char forward-single-char backward-bigword kill-bigword
+bind --preset de kill-word
+bind --preset dE kill-bigword
+bind --preset db backward-kill-word
+bind --preset dB backward-kill-bigword
+bind --preset dge backward-kill-word
+bind --preset dgE backward-kill-bigword
+bind --preset df begin-selection forward-jump kill-selection end-selection
+bind --preset dt begin-selection forward-jump backward-char kill-selection end-selection
+bind --preset dF begin-selection backward-jump kill-selection end-selection
+bind --preset dT begin-selection backward-jump forward-single-char kill-selection end-selection
+bind --preset dh backward-char delete-char
+bind --preset dl delete-char
+bind --preset di backward-jump-till and repeat-jump-reverse and begin-selection repeat-jump kill-selection end-selection
+bind --preset da backward-jump and repeat-jump-reverse and begin-selection repeat-jump kill-selection end-selection
+bind --preset 'd;' begin-selection repeat-jump kill-selection end-selection
+bind --preset d, begin-selection repeat-jump-reverse kill-selection end-selection
+bind --preset -m insert s delete-char repaint-mode
+bind --preset -m insert S kill-inner-line repaint-mode
+bind --preset -m insert cc kill-inner-line repaint-mode
+bind --preset -m insert C kill-line repaint-mode
+bind --preset -m insert 'c$' kill-line repaint-mode
+bind --preset -m insert c^ backward-kill-line repaint-mode
+bind --preset -m insert c0 backward-kill-line repaint-mode
+bind --preset -m insert cw kill-word repaint-mode
+bind --preset -m insert cW kill-bigword repaint-mode
+bind --preset -m insert ciw forward-single-char forward-single-char backward-word kill-word repaint-mode
+bind --preset -m insert ciW forward-single-char forward-single-char backward-bigword kill-bigword repaint-mode
+bind --preset -m insert caw forward-single-char forward-single-char backward-word kill-word repaint-mode
+bind --preset -m insert caW forward-single-char forward-single-char backward-bigword kill-bigword repaint-mode
+bind --preset -m insert ce kill-word repaint-mode
+bind --preset -m insert cE kill-bigword repaint-mode
+bind --preset -m insert cb backward-kill-word repaint-mode
+bind --preset -m insert cB backward-kill-bigword repaint-mode
+bind --preset -m insert cge backward-kill-word repaint-mode
+bind --preset -m insert cgE backward-kill-bigword repaint-mode
+bind --preset -m insert cf begin-selection forward-jump kill-selection end-selection repaint-mode
+bind --preset -m insert ct begin-selection forward-jump backward-char kill-selection end-selection repaint-mode
+bind --preset -m insert cF begin-selection backward-jump kill-selection end-selection repaint-mode
+bind --preset -m insert cT begin-selection backward-jump forward-single-char kill-selection end-selection repaint-mode
+bind --preset -m insert ch backward-char begin-selection kill-selection end-selection repaint-mode
+bind --preset -m insert cl begin-selection kill-selection end-selection repaint-mode
+bind --preset -m insert ci backward-jump-till and repeat-jump-reverse and begin-selection repeat-jump kill-selection end-selection repaint-mode
+bind --preset -m insert ca backward-jump and repeat-jump-reverse and begin-selection repeat-jump kill-selection end-selection repaint-mode
+bind --preset '~' togglecase-char forward-single-char
+bind --preset gu downcase-word
+bind --preset gU upcase-word
+bind --preset J end-of-line delete-char
+bind --preset K man\ \(commandline\ -t\)\ 2\>/dev/null\;\ or\ echo\ -n\ \\a
+bind --preset yy kill-whole-line yank
+bind --preset Y kill-whole-line yank
+bind --preset 'y$' kill-line yank
+bind --preset y^ backward-kill-line yank
+bind --preset y0 backward-kill-line yank
+bind --preset yw kill-word yank
+bind --preset yW kill-bigword yank
+bind --preset yiw forward-single-char forward-single-char backward-word kill-word yank
+bind --preset yiW forward-single-char forward-single-char backward-bigword kill-bigword yank
+bind --preset yaw forward-single-char forward-single-char backward-word kill-word yank
+bind --preset yaW forward-single-char forward-single-char backward-bigword kill-bigword yank
+bind --preset ye kill-word yank
+bind --preset yE kill-bigword yank
+bind --preset yb backward-kill-word yank
+bind --preset yB backward-kill-bigword yank
+bind --preset yge backward-kill-word yank
+bind --preset ygE backward-kill-bigword yank
+bind --preset yf begin-selection forward-jump kill-selection yank end-selection
+bind --preset yt begin-selection forward-jump-till kill-selection yank end-selection
+bind --preset yF begin-selection backward-jump kill-selection yank end-selection
+bind --preset yT begin-selection backward-jump-till kill-selection yank end-selection
+bind --preset yh backward-char begin-selection kill-selection yank end-selection
+bind --preset yl begin-selection kill-selection yank end-selection
+bind --preset yi backward-jump-till and repeat-jump-reverse and begin-selection repeat-jump kill-selection yank end-selection
+bind --preset ya backward-jump and repeat-jump-reverse and begin-selection repeat-jump kill-selection yank end-selection
+bind --preset f forward-jump
+bind --preset F backward-jump
+bind --preset t forward-jump-till
+bind --preset T backward-jump-till
+bind --preset ';' repeat-jump
+bind --preset , repeat-jump-reverse
+bind --preset p forward-char yank
+bind --preset P yank
+bind --preset gp yank-pop
+bind --preset '"*p' forward-char 'commandline -i ( xsel -p; echo )[1]'
+bind --preset '"*P' 'commandline -i ( xsel -p; echo )[1]'
+bind --preset -m replace_one r repaint-mode
+bind --preset -M replace_one -m default '' delete-char self-insert backward-char repaint-mode
+bind --preset -M replace_one -m default \r commandline\ -f\ delete-char\;\ commandline\ -i\ \\n\;\ commandline\ -f\ backward-char\;\ commandline\ -f\ repaint-mode
+bind --preset -M replace_one -m default \e cancel repaint-mode
+bind --preset -m replace R repaint-mode
+bind --preset -M replace '' delete-char self-insert
+bind --preset -M replace -m insert \r execute repaint-mode
+bind --preset -M replace -m default \e cancel repaint-mode
+bind --preset -M replace -k backspace backward-char
+bind --preset -M visual h backward-char
+bind --preset -M visual l forward-char
+bind --preset -M visual k up-line
+bind --preset -M visual j down-line
+bind --preset -M visual b backward-word
+bind --preset -M visual B backward-bigword
+bind --preset -M visual ge backward-word
+bind --preset -M visual gE backward-bigword
+bind --preset -M visual w forward-word
+bind --preset -M visual W forward-bigword
+bind --preset -M visual e forward-word
+bind --preset -M visual E forward-bigword
+bind --preset -M visual o swap-selection-start-stop repaint-mode
+bind --preset -M visual f forward-jump
+bind --preset -M visual t forward-jump-till
+bind --preset -M visual F backward-jump
+bind --preset -M visual T backward-jump-till
+bind --preset -M visual '$' end-of-line
+bind --preset -M visual 'g$' end-of-line
+bind --preset -M visual ^ beginning-of-line
+bind --preset -M visual 0 beginning-of-line
+bind --preset -M visual g^ beginning-of-line
+bind --preset -M visual -m insert c kill-selection end-selection repaint-mode
+bind --preset -M visual -m insert s kill-selection end-selection repaint-mode
+bind --preset -M visual -m default d kill-selection end-selection repaint-mode
+bind --preset -M visual -m default x kill-selection end-selection repaint-mode
+bind --preset -M visual -m default X kill-whole-line end-selection repaint-mode
+bind --preset -M visual -m default y kill-selection yank end-selection repaint-mode
+bind --preset -M visual -m default '"*y' 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
+bind --preset -M visual -m default '~' togglecase-selection end-selection repaint-mode
+bind --preset '#' __fish_toggle_comment_commandline
+bind --preset -M visual '#' __fish_toggle_comment_commandline
+bind --preset -M replace '#' __fish_toggle_comment_commandline
+bind \ck 'commandline -f complete'
