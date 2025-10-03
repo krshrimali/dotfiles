@@ -3,6 +3,9 @@
 //
 
 keybinds clear-defaults=true {
+    // pane "locked" {
+    //     bind "Ctrl \\" { ToggleFloatingPanes; }
+    // }
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
         bind "Alt h" { MoveFocus "left"; SwitchToMode "locked"; }
@@ -158,6 +161,7 @@ keybinds clear-defaults=true {
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
         bind "Ctrl q" { Quit; }
+        bind "Alt \\" { ToggleFloatingPanes; SwitchToMode "normal"; }
     }
     shared_except "locked" "move" {
         bind "Ctrl h" { SwitchToMode "move"; }
@@ -401,6 +405,7 @@ plugins {
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
+    "/codemill/shrimali-r/dash/zellij-plugin/target/wasm32-wasip1/debug/zellij-dash.wasm"
 }
  
 // Use a simplified UI without special fonts (arrow glyphs)
@@ -441,7 +446,7 @@ theme "plain"
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 // 
-default_shell "fish"
+default_shell "zsh"
  
 // Choose the path to override cwd that zellij will use for opening new panes
 // 
@@ -529,12 +534,12 @@ copy_command "xclip -selection clipboard"
 //   - system (default)
 //   - primary
 // 
-// copy_clipboard "primary"
+copy_clipboard "system"
  
 // Enable automatic copying (and clearing) of selection when releasing mouse
 // Default: true
 // 
-copy_on_select false
+copy_on_select true
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
