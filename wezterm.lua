@@ -7,12 +7,14 @@ local function themeCycler(window, _)
 	local darkSchemes = { "Dark+" }
 
 	for name, scheme in pairs(allSchemes) do
-		local bg = wezterm.color.parse(scheme.background) -- parse into a color object
-		---@diagnostic disable-next-line: unused-local
-		local h, s, l, a = bg:hsla() -- and extract HSLA information
-		if l < 0.4 then
-			table.insert(darkSchemes, name)
-		end
+    if scheme.background then
+      local bg = wezterm.color.parse(scheme.background) -- parse into a color object
+      ---@diagnostic disable-next-line: unused-local
+      local h, s, l, a = bg:hsla() -- and extract HSLA information
+      if l < 0.4 then
+        table.insert(darkSchemes, name)
+      end
+    end
 	end
 
 	local randomIndex = math.random(#darkSchemes)
@@ -27,12 +29,14 @@ local function lightThemeCycler(window, _)
 	local lightSchemes = { "Catppuccin Latte" }
 
 	for name, scheme in pairs(allSchemes) do
-		local bg = wezterm.color.parse(scheme.background) -- parse into a color object
-		---@diagnostic disable-next-line: unused-local
-		local h, s, l, a = bg:hsla() -- and extract HSLA information
-		if l > 0.4 then
-			table.insert(lightSchemes, name)
-		end
+    if scheme.background then
+      local bg = wezterm.color.parse(scheme.background) -- parse into a color object
+      ---@diagnostic disable-next-line: unused-local
+      local h, s, l, a = bg:hsla() -- and extract HSLA information
+      if l > 0.4 then
+        table.insert(lightSchemes, name)
+      end
+    end
 	end
 
 	local randomIndex = math.random(#lightSchemes)
@@ -40,6 +44,33 @@ local function lightThemeCycler(window, _)
 	overrides.color_scheme = lightSchemes[randomIndex]
 	window:set_config_overrides(overrides)
 	wezterm.log_info("Switched to: " .. lightSchemes[randomIndex])
+end
+
+local function increaseOpacity(window, _)
+	local overrides = window:get_config_overrides() or {}
+	local current = overrides.window_background_opacity or 0.9
+	local new = math.min(1.0, current + 0.05)
+	overrides.window_background_opacity = new
+	window:set_config_overrides(overrides)
+	wezterm.log_info("Opacity: " .. string.format("%.2f", new))
+end
+
+local function decreaseOpacity(window, _)
+	local overrides = window:get_config_overrides() or {}
+	local current = overrides.window_background_opacity or 0.9
+	local new = math.max(0.0, current - 0.05)
+	overrides.window_background_opacity = new
+	window:set_config_overrides(overrides)
+	wezterm.log_info("Opacity: " .. string.format("%.2f", new))
+end
+
+local function toggleBlur(window, _)
+	local overrides = window:get_config_overrides() or {}
+	local current = overrides.macos_window_background_blur or 0
+	local new = current == 0 and 20 or 0
+	overrides.macos_window_background_blur = new
+	window:set_config_overrides(overrides)
+	wezterm.log_info("Blur: " .. (new == 0 and "Off" or "On (" .. new .. ")"))
 end
 
 if wezterm.config_builder then
@@ -87,11 +118,16 @@ table.insert(mykeys, { key = "u", mods = "CTRL|ALT", action = wezterm.action_cal
 table.insert(mykeys, { key = "l", mods = "CTRL|ALT", action = wezterm.action_callback(lightThemeCycler) })
 table.insert(mykeys, { key = "Escape", mods = "CTRL", action = wezterm.action.ShowDebugOverlay })
 table.insert(mykeys, { key = 'v', mods = 'CTRL', action = act.PasteFrom 'Clipboard' })
+table.insert(mykeys, { key = "=", mods = "ALT", action = wezterm.action_callback(increaseOpacity) })
+table.insert(mykeys, { key = "-", mods = "ALT", action = wezterm.action_callback(decreaseOpacity) })
+table.insert(mykeys, { key = "b", mods = "ALT", action = wezterm.action_callback(toggleBlur) })
 
 -- config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
-config.font = wezterm.font("Iosevka Nerd Font", { weight = "Medium", italic = false, stretch = "Normal" })
-config.line_height = 1.10
-config.cell_width = 1.07
+-- config.font = wezterm.font("Iosevka Nerd Font", { weight = "Medium", italic = false, stretch = "Normal" })
+-- config.font = wezterm.font("Fira Nerd Font")
+-- config.font = wezterm.font("DaddyTimeMono Nerd Font")
+config.line_height = 1.05
+config.cell_width = 1.05
 
 -- config.font =
 -- 	wezterm.font("DankMono Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal", italic = false }) -- /Library/Fonts/DankMonoNerdFont-Regular.ttf, CoreText
@@ -99,13 +135,13 @@ config.cell_width = 1.07
 -- 	wezterm.font("JetBrainsMonoNL Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" }) -- /Users/krshrimali/Library/Fonts/NerdFonts/JetBrains Mono NL SemiBold Nerd Font Complete Mono.ttf, CoreText
 -- config.font = wezterm.font("DankMono Nerd Font", {weight="Regular", stretch="Normal", style="Normal"}) -- /Library/Fonts/DankMonoNerdFont-Regular.ttf, CoreText
 -- config.font = wezterm.font("Iosevka", { weight = "Medium", italic = false, stretch = "Normal" })
-config.font_size = 20.0
+config.font = wezterm.font("Iosevka Nerd Font", { weight = "Medium", italic = false, stretch = "Normal" })
+-- config.font_size = 20.0
 
 config.scrollback_lines = 10000
 config.exit_behavior = "Close"
 config.keys = mykeys
 config.default_cursor_style = "BlinkingUnderline"
-config.default_domain = "WSL:Ubuntu"
 -- config.color_scheme = scheme_for_appearance(get_appearance())
 
 -- wezterm.gui is not available to the mux server, so take care to
@@ -159,8 +195,8 @@ config.hide_tab_bar_if_only_one_tab = true
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 
-config.window_background_opacity = 1.0
-config.macos_window_background_blur = 100
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 0
 -- config.color_scheme = "Catppuccin Mocha"
 -- config.color_scheme = 'Gruvbox Dark (Gogh)'
 -- config.color_scheme = 'Gruvbox dark, medium (base16)'
