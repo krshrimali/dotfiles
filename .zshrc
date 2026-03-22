@@ -110,8 +110,30 @@ export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 alias gap="git add -p"
+alias gaa="git add --all"
+alias gc="git commit -v"
+alias gcm="git commit -m"
+alias gca="git commit -v --amend"
+alias gs="git status -sb"
+alias gd="git diff"
+alias gds="git diff --staged"
 alias gl="git log --oneline --decorate --color --graph"
 alias glp="git log --stat -p | nvim -R -"
+alias gp="git push"
+alias gpf="git push --force-with-lease"
+alias gpl="git pull"
+alias gco="git checkout"
+alias gcb="git checkout -b"
+alias gb="git branch"
+alias gbd="git branch -d"
+alias grb="git rebase"
+alias grbi="git rebase -i"
+alias gst="git stash"
+alias gstp="git stash pop"
+alias gstl="git stash list"
+alias grh="git reset HEAD"
+alias grhh="git reset HEAD --hard"
+alias gcp="git cherry-pick"
 
 # Auto-activate .venv on cd
 function chpwd() {
@@ -166,3 +188,4 @@ fzf-file-widget() {
 }
 zle -N fzf-file-widget
 bindkey '^T' fzf-file-widget
+alias lg="lazygit"
