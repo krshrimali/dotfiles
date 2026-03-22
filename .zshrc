@@ -122,6 +122,8 @@ alias glp="git log --stat -p | nvim -R -"
 alias gp="git push"
 alias gpf="git push --force-with-lease"
 alias gpl="git pull"
+gpo() { git push origin "$(git branch --show-current)" "$@" }
+gPo() { git pull origin "$(git branch --show-current)" "$@" }
 alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gb="git branch"
