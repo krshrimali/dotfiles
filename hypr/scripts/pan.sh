@@ -16,4 +16,4 @@ case "${1:-}" in
     *)     echo "Usage: $(basename "$0") {left|right|up|down}" >&2; exit 2 ;;
 esac
 
-hyprctl dispatch movecursor "$x" "$y" >/dev/null
+hyprctl eval "return hl.dispatch(hl.dsp.cursor.move({x = $x, y = $y}))" >/dev/null

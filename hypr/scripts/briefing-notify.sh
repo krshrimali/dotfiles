@@ -13,7 +13,7 @@ fresh=$(grep -c '🆕' "$DIGEST" || true)
 
 body="🔬 ${papers} papers   💻 ${hn} HN stories"
 [[ "${fresh:-0}" -gt 0 ]] && body+="   📦 ${fresh} new release(s)"
-body+="\n<i>Super+N to read</i>"
+body+=$'\n'"<i>Super+N to read</i>"
 
 notify-send \
   --app-name="Briefing" \

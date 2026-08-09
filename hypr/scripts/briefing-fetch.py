@@ -99,7 +99,7 @@ def fetch_hn() -> list[str]:
 # ───────────────────────────────── arXiv ────────────────────────────────────
 def fetch_arxiv() -> list[str]:
     cat_q = "+OR+".join(f"cat:{c}" for c in ARXIV_CATS)
-    url = ("http://export.arxiv.org/api/query?"
+    url = ("https://export.arxiv.org/api/query?"
            f"search_query={cat_q}"
            "&sortBy=submittedDate&sortOrder=descending&max_results=50")
     try:
@@ -141,14 +141,17 @@ def fetch_github() -> list[str]:
     for repo in GH_WATCH:
         try:
             rel = get(f"https://api.github.com/repos/{repo}/releases/latest")
-        except Exception:
+        except Exception as e:
             # repos with no "releases" 404 — fall back to tags
             try:
                 tags = get(f"https://api.github.com/repos/{repo}/tags")
                 if tags:
                     rows.append(f"- **{repo}** → `{tags[0]['name']}` (tag)")
+                else:
+                    warn(f"GitHub {repo}: no releases or tags")
                 continue
-            except Exception:
+            except Exception as e2:
+                warn(f"GitHub {repo} failed: {e} / tags fallback failed: {e2}")
                 rows.append(f"- **{repo}** _(no release info)_")
                 continue
         tag = rel.get("tag_name", "?")

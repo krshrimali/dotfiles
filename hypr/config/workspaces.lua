@@ -1,0 +1,18 @@
+-- Workspace rules wiki https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+-- Per-monitor workspace assignments (i3-style)
+
+local function workspaceRange(startId, endId, monitor)
+    for i = startId, endId do
+        hl.workspace_rule({ workspace = tostring(i), monitor = monitor, default = (i == startId) })
+    end
+end
+
+workspaceRange(1, 10, "HDMI-A-2")  -- right, 2K portrait flipped
+workspaceRange(11, 20, "DP-2")     -- middle, 2K landscape
+workspaceRange(21, 30, "HDMI-A-1") -- left, HD portrait
+
+-- GPU Observer special workspace: Hyprland auto-spawns kitty on first open (Super+G)
+hl.workspace_rule({
+    workspace = "special:gpu-observer",
+    on_created_empty = 'kitty --class gpu-observer --title "GPU Observer" -e gpu-observer',
+})

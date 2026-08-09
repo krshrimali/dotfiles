@@ -2,6 +2,10 @@
 # Usage: workspace.sh <switch|move> <1-10>
 # Dispatches to per-monitor workspace based on focused monitor name.
 # Monitor name → workspace offset mapping must match hyprland.conf assignments.
+#
+# This build's hyprctl parses `dispatch <name> <args>` as Lua, so raw
+# dispatcher strings (e.g. `hyprctl dispatch workspace 12`) fail. Use
+# `hyprctl eval` with the hl.dsp Lua API instead.
 
 ACTION=$1
 NUM=$2
@@ -17,7 +21,7 @@ for m in monitors:
 
 case "$MONITOR_NAME" in
     HDMI-A-2) OFFSET=0  ;;
-    DP-1)     OFFSET=10 ;;
+    DP-2)     OFFSET=10 ;;
     HDMI-A-1) OFFSET=20 ;;
     *)        OFFSET=0; notify-send "Hyprland workspace routing" "Unknown focused monitor: $MONITOR_NAME. Falling back to workspaces 1-10." ;;
 esac
@@ -25,7 +29,7 @@ esac
 TARGET=$((OFFSET + NUM))
 
 if [ "$ACTION" = "move" ]; then
-    hyprctl dispatch movetoworkspace "$TARGET"
+    hyprctl eval "return hl.dispatch(hl.dsp.window.move({workspace = $TARGET}))"
 else
-    hyprctl dispatch workspace "$TARGET"
+    hyprctl eval "return hl.dispatch(hl.dsp.focus({workspace = $TARGET}))"
 fi
