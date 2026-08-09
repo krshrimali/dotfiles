@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(kitty --version)",
+      "Bash(kitty --debug-config)",
+      "Read(//tmp/**)",
+      "Bash(kitty --help)",
+      "Bash(kitty +runpy 'import kitty; print\\(kitty.__file__\\)')",
+      "Bash(python3 -m py_compile /home/krshrimali/.config/kitty/keymap_search.py)",
+      "Bash(kitty +runpy ' *)",
+      "Bash(kitty +runpy *)"
+    ]
+  }
+}
