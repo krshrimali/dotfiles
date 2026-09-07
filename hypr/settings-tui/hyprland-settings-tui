@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Launch the Hyprland Settings TUI in a floating kitty window.
+dir="$(dirname "$(readlink -f "$0")")"
+bin="$dir/target/release/hyprsettings-tui"
+if [ ! -x "$bin" ]; then
+    bin="$dir/target/debug/hyprsettings-tui"
+fi
+exec kitty --title "Hyprland Settings" -e "$bin" "$@"

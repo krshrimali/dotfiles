@@ -1,0 +1,45 @@
+-- Monitor layout — 3 displays, left to right, vertically centred.
+--
+--   x:      0        1080                3640          5080
+--           +--------+-------------------+-------------+
+--   HDMI-A-1   1080x1920 (BenQ GW2480, 1080p, portrait)
+--   DP-2                 2560x1440 (GW2790QT, landscape)
+--   HDMI-A-2                          1440x2560 (GW2790QT, portrait)
+--
+-- HDMI-A-2 uses transform 3 (270 deg), HDMI-A-1 transform 1 (90 deg). Y offsets centre each
+-- panel against the tallest (HDMI-A-2 at 2560 logical px).
+
+-- Leftmost — 1080p, portrait
+hl.monitor({
+    output = "HDMI-A-1",
+    mode = "1920x1080@60.0",
+    position = "0x320",
+    scale = 1,
+    transform = 1
+})
+
+-- Middle — 1440p, landscape
+hl.monitor({
+    output = "DP-2",
+    mode = "2560x1440@74.97",
+    position = "1080x560",
+    scale = 1
+})
+
+-- Rightmost — 1440p, portrait
+hl.monitor({
+    output = "HDMI-A-2",
+    mode = "2560x1440@74.97",
+    position = "3640x0",
+    scale = 1,
+    bitdepth = 10,
+    transform = 3
+})
+
+-- Anything else that gets plugged in
+hl.monitor({
+    output = "",
+    mode = "preferred",
+    position = "auto",
+    scale = 1
+})

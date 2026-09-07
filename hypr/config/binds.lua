@@ -15,6 +15,10 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(BROWSER))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(MENU))
 
+-- Hyprland Settings TUI (monitors, appearance, animations, input, ...)
+-- GTK/Python version still available at ~/.config/hypr/settings-app if wanted.
+hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd("~/.config/hypr/settings-tui/hyprland-settings-tui"))
+
 -- Screenshot
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 
@@ -84,14 +88,17 @@ hl.bind(mainMod .. " + ALT + R", hl.dsp.exec_cmd(
 
 hl.define_submap("resize", "reset", function()
     local STEP = 50
-    hl.bind("h",     hl.dsp.exec_raw("resizeactive", "-" .. STEP .. " 0"), { repeating = true })
-    hl.bind("l",     hl.dsp.exec_raw("resizeactive", STEP .. " 0"),        { repeating = true })
-    hl.bind("k",     hl.dsp.exec_raw("resizeactive", "0 -" .. STEP),       { repeating = true })
-    hl.bind("j",     hl.dsp.exec_raw("resizeactive", "0 " .. STEP),        { repeating = true })
-    hl.bind("left",  hl.dsp.exec_raw("resizeactive", "-" .. STEP .. " 0"), { repeating = true })
-    hl.bind("right", hl.dsp.exec_raw("resizeactive", STEP .. " 0"),        { repeating = true })
-    hl.bind("up",    hl.dsp.exec_raw("resizeactive", "0 -" .. STEP),       { repeating = true })
-    hl.bind("down",  hl.dsp.exec_raw("resizeactive", "0 " .. STEP),        { repeating = true })
+    local function grow(x, y)
+        return hl.dsp.window.resize({ x = x, y = y, relative = true })
+    end
+    hl.bind("h",     grow(-STEP, 0), { repeating = true })
+    hl.bind("l",     grow(STEP, 0),  { repeating = true })
+    hl.bind("k",     grow(0, -STEP), { repeating = true })
+    hl.bind("j",     grow(0, STEP),  { repeating = true })
+    hl.bind("left",  grow(-STEP, 0), { repeating = true })
+    hl.bind("right", grow(STEP, 0),  { repeating = true })
+    hl.bind("up",    grow(0, -STEP), { repeating = true })
+    hl.bind("down",  grow(0, STEP),  { repeating = true })
     hl.bind("escape", hl.dsp.submap("reset"))
     hl.bind("escape", hl.dsp.exec_cmd('notify-send -t 1500 "Resize mode" "off"'))
     hl.bind(mainMod .. " + ALT + R", hl.dsp.submap("reset"))
@@ -142,10 +149,10 @@ hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 
 -- Resize windows with mainMod + CTRL + hjkl
-hl.bind(mainMod .. " + CONTROL + h", hl.dsp.exec_raw("resizeactive", "-50 0"), { repeating = true })
-hl.bind(mainMod .. " + CONTROL + l", hl.dsp.exec_raw("resizeactive", "50 0"),  { repeating = true })
-hl.bind(mainMod .. " + CONTROL + k", hl.dsp.exec_raw("resizeactive", "0 -50"), { repeating = true })
-hl.bind(mainMod .. " + CONTROL + j", hl.dsp.exec_raw("resizeactive", "0 50"),  { repeating = true })
+hl.bind(mainMod .. " + CONTROL + h", hl.dsp.window.resize({ x = -50, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + l", hl.dsp.window.resize({ x = 50,  y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + k", hl.dsp.window.resize({ x = 0, y = -50, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + j", hl.dsp.window.resize({ x = 0, y = 50,  relative = true }), { repeating = true })
 
 -- Switch workspaces with mainMod + [0-9] (per focused monitor, i3-style)
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -185,6 +192,13 @@ hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_
 hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
+
+-- Cycle the default output/input device with an on-screen picker (Super+A for
+-- speakers, Super+Shift+A for the mic). Each press advances the highlight; the
+-- device you stop on is committed ~1.5s later, so streams are moved once rather
+-- than at every step along the way.
+hl.bind(mainMod .. " + A",         hl.dsp.exec_cmd("~/.config/hypr/scripts/audio-switch.py sink"))
+hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/.config/hypr/scripts/audio-switch.py source"))
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })

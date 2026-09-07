@@ -20,9 +20,9 @@ for m in monitors:
 ")
 
 case "$MONITOR_NAME" in
-    HDMI-A-2) OFFSET=0  ;;  # right,  2K landscape
-    DP-1)     OFFSET=10 ;;  # left,   2K portrait
-    HDMI-A-1) OFFSET=20 ;;  # middle, 2K landscape
+    HDMI-A-2) OFFSET=0  ;;
+    DP-2)     OFFSET=10 ;;
+    HDMI-A-1) OFFSET=20 ;;
     *)        OFFSET=0; notify-send "Hyprland workspace routing" "Unknown focused monitor: $MONITOR_NAME. Falling back to workspaces 1-10." ;;
 esac
 

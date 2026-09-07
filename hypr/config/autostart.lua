@@ -18,4 +18,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("lan-mouse daemon")
     -- Reconcile the BenQ panel to wherever the lan-mouse seat is (covers the Mac->PC return path)
     hl.exec_cmd("~/Documents/projects/monitor-switch/kvm-panel-follow.sh")
+
+    -- Local Learning Hub static site (~/learning-hub), served at localhost:8420
+    hl.exec_cmd("~/.config/hypr/scripts/learning-hub-server.sh")
 end)
