@@ -7,9 +7,9 @@ local function workspaceRange(startId, endId, monitor)
     end
 end
 
-workspaceRange(1, 10, "HDMI-A-2")  -- right,  2K landscape (x=9120)
-workspaceRange(11, 20, "DP-1")     -- left,   2K portrait, transform 3 (x=5120)
-workspaceRange(21, 30, "HDMI-A-1") -- middle, 2K landscape (x=6560)
+workspaceRange(1, 10, "HDMI-A-2")  -- right,  1920x1080, transform 3 (portrait), 10-bit
+workspaceRange(11, 20, "DP-2")     -- middle, 2560x1440 landscape
+workspaceRange(21, 30, "HDMI-A-1") -- left,   2560x1440 landscape
 
 -- GPU Observer special workspace: Hyprland auto-spawns kitty on first open (Super+G)
 hl.workspace_rule({

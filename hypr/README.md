@@ -22,12 +22,19 @@ Everything lives in `hyprland.conf` (binds) and `scripts/` (helpers).
 
 Built on Hyprland's `cursor:zoom_factor`, driven by `scripts/zoom.sh`.
 
-| Key                 | Action                          |
-|---------------------|---------------------------------|
-| `SUPER+=` (hold ok) | Zoom in (×1.08 per repeat, max 8×) |
-| `SUPER+-` (hold ok) | Zoom out                        |
-| `SUPER+Backspace`   | Reset zoom to 1×                |
-| `SUPER+CTRL+scroll` | Zoom in/out with the wheel      |
+| Key                       | Action                          |
+|---------------------------|----------------------------------|
+| `SUPER+=` (hold ok)       | Zoom in                         |
+| `SUPER+-` (hold ok)       | Zoom out                        |
+| `SUPER+Backspace`         | Reset zoom to 1×                |
+| `SUPER+SHIFT+CTRL+scroll` | Zoom in/out with the wheel      |
+
+`animations:enabled` is globally off in this config, so each zoom step is a
+hard snap rather than an eased glide. `zoom.sh` compensates with velocity-
+aware stepping: a burst of notches within 120ms of each other (held key or
+fast scroll) escalates to a bigger per-step multiplier, while a single slow
+notch stays fine-grained — the closest a notched scroll wheel gets to a
+trackpad-style pinch. Max zoom is 8×.
 
 `cursor:zoom_rigid = false` (loose follow): the magnified view scrolls when
 the cursor pushes its edge, instead of staying glued to the cursor. This is a

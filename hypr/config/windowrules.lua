@@ -48,11 +48,11 @@ hl.window_rule({
     opacity  = "0.92 override 0.92",
 })
 
--- Force Counter-Strike 2 to launch on HDMI-A-1 (middle 2K monitor) in fullscreen
+-- Force Counter-Strike 2 to launch on HDMI-A-2 (BenQ EW3270U, 4K 32") in fullscreen
 hl.window_rule({
     name       = "cs2-fullscreen",
     match      = { class = "^cs2$" },
-    monitor    = "HDMI-A-1",
+    monitor    = "HDMI-A-2",
     fullscreen = true,
     float      = false,
     immediate  = true,
