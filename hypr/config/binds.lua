@@ -193,6 +193,10 @@ hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
 
+-- Ratatui audio output picker (Super+F8)
+hl.bind(mainMod .. " + F8", hl.dsp.exec_cmd(
+    "kitty --class sound-switcher -e ~/.config/hypr/sound_switcher/target/release/sound_switcher"))
+
 -- Cycle the default output/input device with an on-screen picker (Super+A for
 -- speakers, Super+Shift+A for the mic). Each press advances the highlight; the
 -- device you stop on is committed ~1.5s later, so streams are moved once rather

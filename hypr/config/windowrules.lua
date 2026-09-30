@@ -52,7 +52,7 @@ hl.window_rule({
 hl.window_rule({
     name       = "cs2-fullscreen",
     match      = { class = "^cs2$" },
-    monitor    = "HDMI-A-2",
+    monitor    = "HDMI-A-1",
     fullscreen = true,
     float      = false,
     immediate  = true,

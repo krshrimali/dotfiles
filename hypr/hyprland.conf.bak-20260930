@@ -27,13 +27,14 @@
 ################
 
 # See https://wiki.hypr.land/Configuring/Monitors/
-# Layout: [HDMI-A-2 2K landscape] | [DP-2 2K landscape] | [HDMI-A-1 1080p portrait]
-# HDMI-A-2  BenQ GW2790QT    2560x1440@74.97Hz  at x=0     (left,   2K landscape)
-# DP-2      BenQ GW2790QT    2560x1440@74.97Hz  at x=2560  (middle, 2K landscape)
-# HDMI-A-1  BenQ GW2480      1920x1080@60Hz     at x=5120  (right,  1080p portrait, transform=1 -> 1080 wide)
-monitor=HDMI-A-2,2560x1440@74.97,0x0,1
-monitor=DP-2,2560x1440@74.97,2560x0,1
-monitor=HDMI-A-1,1920x1080@60.0,5120x0,1,transform,1
+# Layout: [DP-1 2K portrait] | [HDMI-A-1 2K landscape] | [HDMI-A-2 2K landscape]
+# DP-1      BenQ GW2790QT    2560x1440@59.95Hz  at x=5120  (left,   2K portrait, transform=3 -> 1440 wide)
+# HDMI-A-1  BenQ GW2790QT    2560x1440@59.95Hz  at x=6560  (middle, 2K landscape)
+# HDMI-A-2  BenQ EW3270U     2560x1440@59.95Hz  at x=9120  (right,  2K landscape, 10-bit)
+monitor=DP-1,2560x1440@59.95,5120x0,1.0
+monitor=DP-1,transform,3
+monitor=HDMI-A-1,2560x1440@59.95,6560x0,1
+monitor=HDMI-A-2,2560x1440@59.95,9120x0,1,bitdepth,10
 
 # Per-monitor workspace assignments (i3-style)
 # HDMI-A-2 (left, 2K): workspaces 1-10
@@ -48,17 +49,17 @@ workspace = 8,  monitor:HDMI-A-2
 workspace = 9,  monitor:HDMI-A-2
 workspace = 10, monitor:HDMI-A-2
 
-# DP-2 (middle, 2K): workspaces 11-20
-workspace = 11, monitor:DP-2, default:true
-workspace = 12, monitor:DP-2
-workspace = 13, monitor:DP-2
-workspace = 14, monitor:DP-2
-workspace = 15, monitor:DP-2
-workspace = 16, monitor:DP-2
-workspace = 17, monitor:DP-2
-workspace = 18, monitor:DP-2
-workspace = 19, monitor:DP-2
-workspace = 20, monitor:DP-2
+# DP-1 (left, 2K portrait): workspaces 11-20
+workspace = 11, monitor:DP-1, default:true
+workspace = 12, monitor:DP-1
+workspace = 13, monitor:DP-1
+workspace = 14, monitor:DP-1
+workspace = 15, monitor:DP-1
+workspace = 16, monitor:DP-1
+workspace = 17, monitor:DP-1
+workspace = 18, monitor:DP-1
+workspace = 19, monitor:DP-1
+workspace = 20, monitor:DP-1
 
 # HDMI-A-1 (right, 1080p): workspaces 21-30
 workspace = 21, monitor:HDMI-A-1, default:true
@@ -100,6 +101,11 @@ $menu = hyprlauncher
 # is missing because org.freedesktop.portal.Desktop never activates.
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP XDG_RUNTIME_DIR; dbus-update-activation-environment --systemd WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP; systemctl --user start hyprland-session.target xdg-desktop-portal.service
 exec-once = noctalia --daemon
+
+# Secret Service provider (org.freedesktop.secrets) for apps that store
+# login tokens via libsecret (e.g. Webex, which otherwise fails right after
+# sign-in with "Failed to find OS Keychain service").
+exec-once = gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
 
 # Make the notification daemon + hyprctl reachable from systemd --user timers
 # (daily briefing + wellbeing nudges). Needed once per session.
@@ -524,12 +530,12 @@ windowrule {
     opacity = 0.92 override 0.92
 }
 
-# Force Counter-Strike 2 to launch on DP-2 (middle 2K monitor) in fullscreen
+# Force Counter-Strike 2 to launch on HDMI-A-1 (middle 2K monitor) in fullscreen
 windowrule {
     name = cs2-fullscreen
     match:class = ^cs2$
 
-    monitor = HDMI-A-2
+    monitor = HDMI-A-1
     fullscreen = yes
     float = no
     immediate = yes
