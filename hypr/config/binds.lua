@@ -39,8 +39,14 @@ hl.bind(mainMod .. " + ALT + X", hl.dsp.exec_cmd("wayscriber --daemon-toggle"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())        -- dwindle
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))  -- dwindle
 
--- Super+D window switcher
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show window"))
+-- Super+D opens the workspace preview grid (click a workspace to switch).
+hl.bind(mainMod .. " + D", function()
+    if hl.plugin.hyprexpo then
+        hl.plugin.hyprexpo.expo("toggle")
+    else
+        hl.dispatch(hl.dsp.exec_cmd("rofi -show window"))
+    end
+end)
 
 -- Keybind viewer
 hl.bind(mainMod .. " + semicolon", hl.dsp.exec_cmd("~/.config/hypr/scripts/keybind-runner.sh"))
@@ -63,6 +69,9 @@ hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("~/Documents/projects/monitor
 -- Workspace swipe: hold to scrub through workspaces
 hl.bind(mainMod .. " + bracketright", hl.dsp.focus({ workspace = "e+1" }), { repeating = true })
 hl.bind(mainMod .. " + bracketleft",  hl.dsp.focus({ workspace = "e-1" }), { repeating = true })
+-- Move the current workspace to the adjacent monitor (not just its window).
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.workspace.move({ monitor = "left" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.workspace.move({ monitor = "right" }))
 -- Window swipe: cycle windows on the current workspace
 hl.bind(mainMod .. " + Tab",         hl.dsp.window.cycle_next())
 hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.exec_raw("cyclenext", "prev"))
