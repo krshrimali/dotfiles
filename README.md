@@ -1,49 +1,21 @@
-# dotfiles
+# Dotfiles
 
-The dotfiles I use.
+Personal configuration for the desktop, shells, terminals, and editors I use.
 
-```
-tmux, zsh (+ oh-my-zsh), alacritty, neovim, fzf, lazygit
-```
-
-## Installation
-
-Make sure to install the following
-
-1. [fd](https://github.com/sharkdp/fd#installation) - on debian based OS, you might have to do: `ln -s $(which fdfind) ~/.local/bin/fd`
-2. [bat](https://github.com/sharkdp/bat)
-3. [tmux](https://github.com/tmux/tmux)
-4. `tree`, if using `apt`: `sudo apt install tree`
-5. [fzf](https://github.com/junegunn/fzf)
-6. [ats](https://github.com/tichopad/alacritty-theme-switch): can just do `npm install -g alacritty-theme-switch`
-7. [lazygit](https://github.com/jesseduffield/lazygit) -> you may need [homebrew](https://brew.sh/) for this if you are on Linux.
-8. [autojump](https://github.com/wting/autojump) -- optional
+| Category | Config | What’s configured |
+|---|---|---|
+| Desktop compositor | [`hypr/`](hypr/) | Hyprland Lua configuration for monitors, workspaces, window rules, layout, decorations, animations, startup, and environment. Includes keyboard and Magic Trackpad gestures, Hyprexpo workspace previews, per-monitor zoom and pan controls, and helper scripts. |
+| Hyprland controls | [`hypr/config/binds.lua`](hypr/config/binds.lua), [`hypr/scripts/`](hypr/scripts/) | Window and workspace navigation, resizing and pan modes, monitor switching, audio controls, screenshots, keybind search, briefing tools, and other desktop helpers. |
+| Hyprland settings tools | [`hypr/settings-app/`](hypr/settings-app/), [`hypr/settings-tui/`](hypr/settings-tui/) | GTK and terminal interfaces for changing compositor settings. |
+| Shells | [`.zshrc`](.zshrc), [`config.fish`](config.fish), [`fish/`](fish/) | Zsh with Oh My Zsh and Fish with Oh My Fish, shell startup settings, aliases, functions, completions, and prompt/plugin configuration. |
+| Search and command-line workflow | [`fish/`](fish/), [`.zshrc`](.zshrc), [`key-bindings.zsh`](key-bindings.zsh) | Fuzzy file, directory, history, process, and Git workflows using tools such as fzf, fd, ripgrep, and bat; Git and package-manager shortcuts are also included. |
+| Terminal emulators | [`kitty/`](kitty/), [`wezterm.lua`](wezterm.lua), [`alacritty.yml`](alacritty.yml) | Kitty and WezTerm settings, keymaps, pane workflows, theme switching, and Alacritty configuration. Theme files are collected in [`kitty/themes/`](kitty/themes/) and [`themes/`](themes/). |
+| Terminal multiplexer | [`zellij/`](zellij/) | Custom pane, tab, resize, move, scroll, and search keymaps, plus themes and bundled plugins. |
+| Emacs | [`doom/`](doom/) | Doom Emacs module selection and package declarations, including Evil, completion, LSP, Magit, vterm, and Copilot. |
+| Visual Studio Code | [`vscode-user-settings.json`](vscode-user-settings.json) | Vim-style editing, Space leader mappings, and shortcuts for Explorer, search, source control, and quick open. |
 
 ## Notes
 
-**Distribution**: Endeavour OS - PC and Pop OS (22.04) - Laptop
-**Current Code Editor**: neovim
-**Current color-scheme**: catppuccin (mocha flavour)
-
-1. `tmux`:
-  * Plugins: `tmux-sensible, tmux-tilish, tmux-navigate, tmux-fzf`
-  * Navigate and tilish allow me to navigate between vim windows and tmux panes easily using Alt+j/k/h/l keymaps.
-
-To set background correctly for alacritty + nvim: [refer this gist]( https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6?permalink_comment_id=4109663#gistcomment-4109663 ).
-
-2. `alacritty-theme-switch`:
-	* Using it to switch between available themes (`~/.config/alacritty/themes`).
-  * Shortcut: `ats`, and that's it.
-
-3. `fzf`:
-	* It plays a major role. I mostly use, `fii` to search for a word (interactively) and open the file in neovim, alt+C, ctrl+T keymaps. Do `alias` to search for the available aliases.
-
-4. `lg` (lazygit):
-	* Very useful, I use it to stage/commit/push/pull changes to my GitHub repo.
-
-5. neovim:
-	* neovim has played huge role in my life, professionally and personally. :) I would definitely recommend everyone using it.
-  * My config: https://github.com/krshrimali/nvim
-
-6. `bat`:
-	* Just better alternative to `cat`. IMO
+- The Hyprland monitor names, workspace assignments, device rules, and some startup paths are specific to my machine.
+- Optional utilities referenced by configs and scripts—such as `fzf`, `fd`, `bat`, `ripgrep`, `rofi`, and `hyprctl`—need to be installed separately.
+- Application configuration files can be linked into their expected locations under `~/.config` or the home directory. Review machine-specific paths before using them on another system.
