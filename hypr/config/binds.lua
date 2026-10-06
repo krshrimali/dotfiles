@@ -66,12 +66,13 @@ hl.bind(mainMod .. " + bracketleft",  hl.dsp.focus({ workspace = "e-1" }), { rep
 -- Window swipe: cycle windows on the current workspace
 hl.bind(mainMod .. " + Tab",         hl.dsp.window.cycle_next())
 hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.exec_raw("cyclenext", "prev"))
--- Pinch zoom: magnify the whole desktop around the cursor (hold to keep zooming)
+-- Trackpad-style desktop zoom: hold SUPER, scroll to change magnification,
+-- and move the pointer to steer the magnified center.
 hl.bind(mainMod .. " + equal",     hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh in"),  { repeating = true })
 hl.bind(mainMod .. " + minus",     hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh out"), { repeating = true })
 hl.bind(mainMod .. " + BackSpace", hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh reset"))
-hl.bind(mainMod .. " + SHIFT + CONTROL + mouse_down", hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh in"))
-hl.bind(mainMod .. " + SHIFT + CONTROL + mouse_up",   hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh out"))
+hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh in"))
+hl.bind(mainMod .. " + mouse_up",   hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh out"))
 
 -- Keybind cheatsheet (SUPER+/): searchable list of all active binds in rofi
 hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd("~/.config/hypr/scripts/keybinds.sh"))
@@ -166,10 +167,6 @@ end
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.window.move({ workspace = "special:magic" }))
 hl.bind(mainMod .. " + G",         hl.dsp.workspace.toggle_special("gpu-observer"))
-
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())

@@ -41,8 +41,10 @@ hl.config({
     },
 
     cursor = {
-        -- Keep the cursor centered while zoomed so moving the mouse pans the view
+        -- Let the pointer move freely; pan the magnified view only as needed
+        -- to keep it visible near the edges of the active monitor.
         zoom_rigid = false,
+        zoom_detached_camera = true,
     },
 
     xwayland = {

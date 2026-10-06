@@ -27,7 +27,8 @@ Built on Hyprland's `cursor:zoom_factor`, driven by `scripts/zoom.sh`.
 | `SUPER+=` (hold ok)       | Zoom in                         |
 | `SUPER+-` (hold ok)       | Zoom out                        |
 | `SUPER+Backspace`         | Reset zoom to 1×                |
-| `SUPER+SHIFT+CTRL+scroll` | Zoom in/out with the wheel      |
+| `SUPER+scroll`            | Zoom in/out; pointer steers center |
+| Two-finger pinch          | Continuous trackpad zoom        |
 
 `animations:enabled` is globally off in this config, so each zoom step is a
 hard snap rather than an eased glide. `zoom.sh` compensates with velocity-
@@ -36,9 +37,13 @@ fast scroll) escalates to a bigger per-step multiplier, while a single slow
 notch stays fine-grained — the closest a notched scroll wheel gets to a
 trackpad-style pinch. Max zoom is 8×.
 
-`cursor:zoom_rigid = false` (loose follow): the magnified view scrolls when
-the cursor pushes its edge, instead of staying glued to the cursor. This is a
-deliberate preference — rigid mode felt too twitchy.
+`cursor:zoom_rigid = false` and `cursor:zoom_detached_camera = true` let the
+pointer move freely. The magnified view pans when needed to keep the pointer
+visible near the active monitor's edges. `SUPER+scroll` controls zoom directly;
+it no longer switches workspaces. Each monitor keeps its own zoom level: an
+unzoomed monitor starts at 1×, and returning to a zoomed monitor restores its
+previous level. When zoomed above 1×, crossing a monitor boundary snaps the
+pointer back to the zoomed monitor.
 
 ## Pan mode (move around while zoomed)
 
