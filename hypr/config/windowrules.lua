@@ -37,7 +37,7 @@ hl.layer_rule({
 })
 
 -- GPU Observer (Super+G): floating panel, see config/workspaces.lua for the
--- special workspace + on_created_empty spawn.
+-- special workspace + workspace.created spawn.
 hl.window_rule({
     name   = "gpu-observer-float",
     match  = { class = "gpu-observer" },
@@ -48,11 +48,11 @@ hl.window_rule({
     opacity  = "0.92 override 0.92",
 })
 
--- Force Counter-Strike 2 to launch on HDMI-A-2 (BenQ EW3270U, 4K 32") in fullscreen
+-- Force Counter-Strike 2 to launch on the main monitor (HDMI-A-3) in fullscreen
 hl.window_rule({
     name       = "cs2-fullscreen",
     match      = { class = "^cs2$" },
-    monitor    = "HDMI-A-1",
+    monitor    = "HDMI-A-3",
     fullscreen = true,
     float      = false,
     immediate  = true,

@@ -21,4 +21,8 @@ hl.on("hyprland.start", function()
 
     -- Local Learning Hub static site (~/learning-hub), served at localhost:8420
     hl.exec_cmd("~/.config/hypr/scripts/learning-hub-server.sh")
+
+    -- Workspace overview daemon (Super+D / 3-finger swipe up) while hyprexpo
+    -- has no Hyprland 0.57 build.
+    hl.exec_cmd("~/.local/bin/hyprexpose --allow-mouse --no-preview")
 end)

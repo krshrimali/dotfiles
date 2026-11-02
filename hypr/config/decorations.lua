@@ -26,17 +26,47 @@ hl.config({
         inactive_opacity = 1.0,
 
         shadow = {
-            enabled = false,
+            enabled = true,
             range = 4,
             render_power = 3,
             color = "rgba(1a1a1aee)",
         },
 
         blur = {
-            enabled = false,
+            enabled = true,
             size = 3,
             passes = 1,
             vibrancy = 0.1696,
+            -- 0.57 blur variants: kawase (classic), frost, ripple, drops, water,
+            -- fluid_jar, prism, heat_shimmer, acrylic, aurora, haze.
+            -- Animated ones (drops, heat_shimmer, aurora, water, fluid_jar) cost
+            -- GPU every frame. "frost" / "acrylic" are the cheap, static-looking ones.
+            variant = "kawase",
+        },
+
+        -- ---- New 0.57 effects ----
+
+        -- Soft inner glow along window edges
+        glow = {
+            enabled = true,
+            range = 10,
+            render_power = 3,
+            color = "rgba(33ccff55)",
+            color_inactive = "rgba(00000000)",
+        },
+
+        -- Motion blur while windows move/resize (pairs well with animations)
+        motion_blur = {
+            enabled = true,
+            samples = 7,
+        },
+
+        -- Compiz-style wobbly windows when dragging/resizing
+        wobble = {
+            enabled = true,
+            stiffness = 200,
+            damping = 12,
+            intensity = 0.2,
         },
     },
 

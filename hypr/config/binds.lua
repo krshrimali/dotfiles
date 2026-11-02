@@ -40,11 +40,12 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())        -- dwindle
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))  -- dwindle
 
 -- Super+D opens the workspace preview grid (click a workspace to switch).
+-- Prefers the hyprexpo plugin; otherwise toggles the hyprexpose daemon.
 hl.bind(mainMod .. " + D", function()
     if hl.plugin.hyprexpo then
         hl.plugin.hyprexpo.expo("toggle")
     else
-        hl.dispatch(hl.dsp.exec_cmd("rofi -show window"))
+        hl.dispatch(hl.dsp.exec_cmd("pkill -SIGUSR1 hyprexpose"))
     end
 end)
 
@@ -67,14 +68,14 @@ hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("~/Documents/projects/monitor
 
 -- Keyboard "gestures"
 -- Workspace swipe: hold to scrub through workspaces
-hl.bind(mainMod .. " + bracketright", hl.dsp.focus({ workspace = "e+1" }), { repeating = true })
-hl.bind(mainMod .. " + bracketleft",  hl.dsp.focus({ workspace = "e-1" }), { repeating = true })
+hl.bind(mainMod .. " + bracketright", hl.dsp.focus({ workspace = "m+1" }), { repeating = true })
+hl.bind(mainMod .. " + bracketleft",  hl.dsp.focus({ workspace = "m-1" }), { repeating = true })
 -- Move the current workspace to the adjacent monitor (not just its window).
 hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.workspace.move({ monitor = "left" }))
 hl.bind(mainMod .. " + SHIFT + right", hl.dsp.workspace.move({ monitor = "right" }))
 -- Window swipe: cycle windows on the current workspace
 hl.bind(mainMod .. " + Tab",         hl.dsp.window.cycle_next())
-hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.exec_raw("cyclenext", "prev"))
+hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.exec_raw("cyclenext prev"))
 -- Trackpad-style desktop zoom: hold SUPER, scroll to change magnification,
 -- and move the pointer to steer the magnified center.
 hl.bind(mainMod .. " + equal",     hl.dsp.exec_cmd("~/.config/hypr/scripts/zoom.sh in"),  { repeating = true })

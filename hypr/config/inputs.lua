@@ -1,7 +1,7 @@
 -- Input configuration https://wiki.hypr.land/Configuring/Basics/Variables/#input
 
 -- Keep the compositor-native workspace preview plugin loaded every session.
-local pluginDir = "/home/krshrimali/.local/share/hyprland/plugins/"
+local pluginDir = "/home/karma/.local/share/hyprland/plugins/"
 hl.plugin.load(pluginDir .. "hyprexpo.so")
 
 local loadedPlugins = {}
@@ -71,6 +71,11 @@ if hasHyprexpo then
     end })
     hl.gesture({ fingers = 3, direction = "down", action = function()
         hl.plugin.hyprexpo.expo("close")
+    end })
+else
+    -- hyprexpose toggles on SIGUSR1; Enter/Esc/click closes it.
+    hl.gesture({ fingers = 3, direction = "up", action = function()
+        hl.dispatch(hl.dsp.exec_cmd("pkill -SIGUSR1 hyprexpose"))
     end })
 end
 
