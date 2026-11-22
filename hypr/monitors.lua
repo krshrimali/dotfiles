@@ -3,7 +3,7 @@
 
 -- Left: BenQ GW2790QT 2560x1440, portrait (1440x2560 logical)
 hl.monitor({
-    output = "DP-3",
+    output = "DP-4",
     mode = "2560x1440@74.97",
     position = "0x0",
     scale = 1,

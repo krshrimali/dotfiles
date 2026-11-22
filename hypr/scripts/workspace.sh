@@ -19,9 +19,27 @@ for m in monitors:
         break
 ")
 
+# A fullscreen Citrix desktop spans every monitor, so whichever screen the cursor is on,
+# Super+N should act on the monitor that owns the Citrix window. Switching that monitor's
+# workspace takes the whole span away (and switching back brings it back).
+CITRIX_MON=$(hyprctl activewindow -j 2>/dev/null | python3 -c "
+import json, sys
+try:
+    w = json.load(sys.stdin)
+except Exception:
+    sys.exit()
+if w.get('class') == 'Wfica' and w.get('fullscreen', 0):
+    mid = w.get('monitor')
+    import subprocess
+    for m in json.loads(subprocess.check_output(['hyprctl', 'monitors', '-j'])):
+        if m['id'] == mid:
+            print(m['name'])
+")
+[ -n "$CITRIX_MON" ] && MONITOR_NAME=$CITRIX_MON
+
 case "$MONITOR_NAME" in
     HDMI-A-3) OFFSET=0  ;;  # middle, 2K landscape (main)
-    DP-3)     OFFSET=10 ;;  # left,   2K portrait
+    DP-4)     OFFSET=10 ;;  # left,   2K portrait
     HDMI-A-4) OFFSET=20 ;;  # right,  1920x1080 portrait
     *)        OFFSET=0; notify-send "Hyprland workspace routing" "Unknown focused monitor: $MONITOR_NAME. Falling back to workspaces 1-10." ;;
 esac

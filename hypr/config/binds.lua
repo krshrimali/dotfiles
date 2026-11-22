@@ -8,8 +8,10 @@ hl.bind(mainMod .. " + Q",      hl.dsp.exec_cmd(TERMINAL))
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(TERMINAL))
 hl.bind(mainMod .. " + W",      hl.dsp.window.close())
 hl.bind(mainMod .. " + M",      hl.dsp.exec_cmd("hyprlock"))
+-- Log out. Uses hyprshutdown if installed, else exits Hyprland directly
+-- (plain `hyprctl dispatch exit` doesn't work on this build).
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd(
-    "if command -v hyprshutdown >/dev/null 2>&1; then hyprshutdown; else hyprctl dispatch exit; fi"))
+    "if command -v hyprshutdown >/dev/null 2>&1; then hyprshutdown; else hyprctl eval 'hl.dispatch(hl.dsp.exit())'; fi"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(FILE_MANAGER))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(BROWSER))
@@ -36,6 +38,20 @@ hl.bind(mainMod .. " + SHIFT + mouse_up",   hl.dsp.exec_cmd("~/.config/hypr/scri
 -- on its unreleased main branch as of v0.9.22, the newest AUR release.
 -- Once open: Ctrl+Alt+scroll zooms, Ctrl+Alt+L locks the view.
 hl.bind(mainMod .. " + ALT + X", hl.dsp.exec_cmd("wayscriber --daemon-toggle"))
+
+-- inkover: draw on the live screen with the Wacom pen
+-- (~/Documents/projects/inkover, github.com/krshrimali/inkover).
+-- Super+Alt+D starts it in DRAW mode, then flips DRAW <-> PASS (ink stays,
+-- screen usable). Super+Alt+S grabs a region screenshot with ink into the
+-- clipboard. F1 inside the overlay lists all keys.
+hl.bind(mainMod .. " + ALT + D",         hl.dsp.exec_cmd("~/.local/bin/inkover toggle"))
+hl.bind(mainMod .. " + ALT + C",         hl.dsp.exec_cmd("~/.local/bin/inkover clear all"))
+hl.bind(mainMod .. " + ALT + S",         hl.dsp.exec_cmd("~/.local/bin/inkover screenshot region"))
+-- Super+Alt+G: inkover control panel (settings, recording, library).
+hl.bind(mainMod .. " + ALT + G",         hl.dsp.exec_cmd("~/.local/bin/inkover-gui"))
+-- Super+Alt+V: record a region (screen + ink) to ~/Videos/inkover; press again to stop.
+hl.bind(mainMod .. " + ALT + V",         hl.dsp.exec_cmd("~/.local/bin/inkover record region"))
+hl.bind(mainMod .. " + ALT + SHIFT + D", hl.dsp.exec_cmd("~/.local/bin/inkover quit"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())        -- dwindle
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))  -- dwindle
 
@@ -167,10 +183,13 @@ hl.bind(mainMod .. " + CONTROL + j", hl.dsp.window.resize({ x = 0, y = 50,  rela
 
 -- Switch workspaces with mainMod + [0-9] (per focused monitor, i3-style)
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
+-- In the Citrix session these bypass keyboard grabs (dont_inhibit), so they reach
+-- Hyprland even while a fullscreen Citrix desktop holds the keyboard.
+local wsBindOpts = (os.getenv("HYPR_CITRIX") == "1") and { dont_inhibit = true } or nil
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key,         hl.dsp.exec_cmd("~/.config/hypr/scripts/workspace.sh switch " .. i))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.exec_cmd("~/.config/hypr/scripts/workspace.sh move " .. i))
+    hl.bind(mainMod .. " + " .. key,         hl.dsp.exec_cmd("~/.config/hypr/scripts/workspace.sh switch " .. i), wsBindOpts)
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.exec_cmd("~/.config/hypr/scripts/workspace.sh move " .. i), wsBindOpts)
 end
 
 -- Special workspaces (scratchpad + GPU observer)

@@ -77,3 +77,19 @@ hl.window_rule({
     rounding = 16,
     opacity  = "0.96 override 0.96",
 })
+
+-- Webex: tile every window (main app, meetings, pre-join), it floats them all by default.
+hl.window_rule({
+    name  = "webex-tile",
+    match = { class = "^([Ww]ebex)$" },
+    float = false,
+})
+
+-- inkover control panel (inkover gui / Super+Alt+G): small floating window.
+hl.window_rule({
+    name   = "inkover-gui-float",
+    match  = { class = "io.github.krshrimali.inkover.Gui" },
+    float  = true,
+    size   = { "640", "780" },
+    center = true,
+})

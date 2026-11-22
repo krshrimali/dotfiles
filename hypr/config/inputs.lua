@@ -53,6 +53,19 @@ hl.config({
         touchpad = {
             natural_scroll = true,
         },
+
+        -- Wacom Intuos M (CTL-6100): map the pen to the main landscape monitor
+        -- so the 16:9 active area isn't stretched across all three screens.
+        tablet = {
+            output = "HDMI-A-3",
+            -- Absolute mode: each spot on the tablet maps to one spot on screen,
+            -- like real pen on paper. (true = mouse-like mode, bad for drawing.)
+            relative_input = false,
+            -- The tablet is 216x135mm (16:10) but the monitor is 16:9. Use a
+            -- centred 216x121.5mm area so strokes aren't squashed vertically.
+            active_area_size = { 216, 121.5 },
+            active_area_position = { 0, 6.75 },
+        },
     },
 
     plugin = pluginConfig,

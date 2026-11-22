@@ -15,13 +15,13 @@ local function workspaceRange(startId, endId, monitor)
 end
 
 workspaceRange(1, 10, "HDMI-A-3")  -- middle, 2560x1440 landscape (main)
-workspaceRange(11, 20, "DP-3")     -- left,   2560x1440 portrait
+workspaceRange(11, 20, "DP-4")     -- left,   2560x1440 portrait
 workspaceRange(21, 30, "HDMI-A-4") -- right,  1920x1080 portrait
 
 -- Rules above only apply when a workspace is created. When a monitor drops
 -- (e.g. Super+I to the Mac) its workspaces migrate and never come back, so on
 -- reconnect move every workspace back to its owning monitor.
-local homeMonitor = { [0] = "HDMI-A-3", [1] = "DP-3", [2] = "HDMI-A-4" }
+local homeMonitor = { [0] = "HDMI-A-3", [1] = "DP-4", [2] = "HDMI-A-4" }
 hl.on("monitor.added", function()
     local connected = {}
     for _, m in ipairs(hl.get_monitors()) do connected[m.name] = true end

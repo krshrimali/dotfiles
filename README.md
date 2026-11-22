@@ -31,7 +31,7 @@ Three BenQ screens: portrait, landscape, portrait.
 ```
  ┌──────┐                      ┌──────┐
  │      │ ┌──────────────────┐ │      │
- │ DP-3 │ │    HDMI-A-3      │ │HDMI- │
+ │ DP-4 │ │    HDMI-A-3      │ │HDMI- │
  │ 1440 │ │   2560×1440      │ │ A-4  │
  │  ×   │ │     (main)       │ │ 1080 │
  │ 2560 │ └──────────────────┘ │ ×1920│
