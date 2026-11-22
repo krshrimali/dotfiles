@@ -96,8 +96,11 @@ When a monitor reconnects, its workspaces are moved back to it automatically.
 | Monitor | Layout |
 |---|---|
 | `HDMI-A-3` (main) | dwindle |
-| `DP-4` (left) | master, `orientation = top`: full-width rows, main window on top |
-| `HDMI-A-4` (right) | scrolling, `direction = down` (trial): an endless vertical strip of rows; `Super+J/K` scrolls it |
+| `DP-4` (left) | scrolling, `direction = down`: an endless vertical strip of rows; `Super+J/K` scrolls it |
+| `HDMI-A-4` (right) | scrolling, `direction = down` |
+
+`PORTRAIT_MASTER` in `workspaces.lua` (master, `orientation = top`) is the
+alternative for either portrait monitor.
 
 `Super+T` changes with the layout: on dwindle it toggles the split, on master
 it cycles the orientation, and on scrolling it cycles the row height

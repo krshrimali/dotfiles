@@ -4,18 +4,17 @@
 -- Each monitor owns ten workspace IDs, but every workspace is *named* 1-10 so
 -- each monitor reads as its own 1-10. Offsets must match scripts/workspace.sh.
 --
--- Portrait monitors use the master layout with orientation "top": the master
--- window spans the full width at the top and the rest stack below it in
--- full-width rows. That fits tall screens better than dwindle, which keeps
--- splitting into narrow columns. The landscape main monitor stays on dwindle
--- (the global default).
-local PORTRAIT = { layout = "master", layout_opts = { orientation = "top" } }
-
--- Right monitor (trial): scrolling layout running downward. Windows sit on an
--- endless vertical strip of full-width rows; focusing up/down (SUPER+j/k)
--- scrolls the strip. Row height comes from scrolling:column_width (a fraction
--- of the screen) and SUPER+T cycles through the preset heights. To go back to
--- master on this monitor, swap PORTRAIT_SCROLL for PORTRAIT below.
+-- Both portrait monitors use the scrolling layout running downward: windows
+-- sit on an endless vertical strip of full-width rows, and focusing up/down
+-- (SUPER+j/k) scrolls the strip. Row height comes from scrolling:column_width
+-- (a fraction of the screen); SUPER+T cycles through the preset heights.
+-- The landscape middle monitor is the main one and stays on dwindle (the
+-- global default).
+--
+-- PORTRAIT_MASTER is the alternative: master with orientation "top" (main
+-- window across the top, the rest stacked below). Swap it in on a monitor's
+-- line below to go back.
+local PORTRAIT_MASTER = { layout = "master", layout_opts = { orientation = "top" } }
 local PORTRAIT_SCROLL = { layout = "scrolling", layout_opts = { direction = "down" } }
 
 local function workspaceRange(startId, endId, monitor, extra)
@@ -32,7 +31,7 @@ local function workspaceRange(startId, endId, monitor, extra)
 end
 
 workspaceRange(1, 10, "HDMI-A-3")            -- middle, 2560x1440 landscape (main)
-workspaceRange(11, 20, "DP-4", PORTRAIT)     -- left,   2560x1440 portrait
+workspaceRange(11, 20, "DP-4", PORTRAIT_SCROLL)     -- left,   2560x1440 portrait
 workspaceRange(21, 30, "HDMI-A-4", PORTRAIT_SCROLL) -- right,  1920x1080 portrait
 
 -- Rules above only apply when a workspace is created. When a monitor drops
