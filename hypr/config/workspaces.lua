@@ -3,20 +3,37 @@
 
 -- Each monitor owns ten workspace IDs, but every workspace is *named* 1-10 so
 -- each monitor reads as its own 1-10. Offsets must match scripts/workspace.sh.
-local function workspaceRange(startId, endId, monitor)
+--
+-- Portrait monitors use the master layout with orientation "top": the master
+-- window spans the full width at the top and the rest stack below it in
+-- full-width rows. That fits tall screens better than dwindle, which keeps
+-- splitting into narrow columns. The landscape main monitor stays on dwindle
+-- (the global default).
+local PORTRAIT = { layout = "master", layout_opts = { orientation = "top" } }
+
+-- Right monitor (trial): scrolling layout running downward. Windows sit on an
+-- endless vertical strip of full-width rows; focusing up/down (SUPER+j/k)
+-- scrolls the strip. Row height comes from scrolling:column_width (a fraction
+-- of the screen) and SUPER+T cycles through the preset heights. To go back to
+-- master on this monitor, swap PORTRAIT_SCROLL for PORTRAIT below.
+local PORTRAIT_SCROLL = { layout = "scrolling", layout_opts = { direction = "down" } }
+
+local function workspaceRange(startId, endId, monitor, extra)
     for i = startId, endId do
-        hl.workspace_rule({
+        local rule = {
             workspace = tostring(i),
             monitor = monitor,
             default = (i == startId),
             default_name = tostring(i - startId + 1),
-        })
+        }
+        for k, v in pairs(extra or {}) do rule[k] = v end
+        hl.workspace_rule(rule)
     end
 end
 
-workspaceRange(1, 10, "HDMI-A-3")  -- middle, 2560x1440 landscape (main)
-workspaceRange(11, 20, "DP-4")     -- left,   2560x1440 portrait
-workspaceRange(21, 30, "HDMI-A-4") -- right,  1920x1080 portrait
+workspaceRange(1, 10, "HDMI-A-3")            -- middle, 2560x1440 landscape (main)
+workspaceRange(11, 20, "DP-4", PORTRAIT)     -- left,   2560x1440 portrait
+workspaceRange(21, 30, "HDMI-A-4", PORTRAIT_SCROLL) -- right,  1920x1080 portrait
 
 -- Rules above only apply when a workspace is created. When a monitor drops
 -- (e.g. Super+I to the Mac) its workspaces migrate and never come back, so on

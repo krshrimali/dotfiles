@@ -76,7 +76,7 @@ Each monitor has its own workspaces 1–10:
 | Monitor | Position | Workspace IDs |
 |---|---|---|
 | `HDMI-A-3` | middle (main), landscape | 1–10 |
-| `DP-3` | left, portrait | 11–20 |
+| `DP-4` | left, portrait | 11–20 |
 | `HDMI-A-4` | right, portrait | 21–30 |
 
 | Key | Action |
@@ -90,6 +90,22 @@ Each monitor has its own workspaces 1–10:
 | `Super+G` | Toggle the `gpu-observer` scratchpad |
 
 When a monitor reconnects, its workspaces are moved back to it automatically.
+
+**Layouts per monitor** (`workspaces.lua`):
+
+| Monitor | Layout |
+|---|---|
+| `HDMI-A-3` (main) | dwindle |
+| `DP-4` (left) | master, `orientation = top`: full-width rows, main window on top |
+| `HDMI-A-4` (right) | scrolling, `direction = down` (trial): an endless vertical strip of rows; `Super+J/K` scrolls it |
+
+`Super+T` changes with the layout: on dwindle it toggles the split, on master
+it cycles the orientation, and on scrolling it cycles the row height
+(`scrolling:explicit_column_widths`).
+
+**App homes** (`windowrules.lua`): Discord and music apps open on workspace 21
+(right monitor, "1") without taking focus. Browsers open on the left monitor's
+active workspace. These rules apply only when a window opens.
 
 The offsets in `workspaces.lua` and `scripts/workspace.sh` must match.
 
@@ -116,6 +132,44 @@ Hyprexpo has no 0.57 build yet.
 
 These call scripts in a separate `~/Documents/projects/monitor-switch/` project
 that isn't part of this repo.
+
+## Picture-in-picture
+
+Lives in `config/pip.lua`.
+
+| Key | Action |
+|---|---|
+| `Super+Shift+P` | Toggle PiP on the focused window |
+| `Super+Shift+Alt+P` | Move the PiP window to the next corner (BR → BL → TL → TR) |
+
+Entering PiP floats the window, shrinks it to 25% of the monitor width (aspect
+ratio kept, capped at 40% of the height), parks it in the bottom-right corner
+and pins it across workspaces. Toggling again restores the original geometry.
+PiP windows get the `pip` tag, and `hyprctl eval "PIP.toggle()"` works from
+scripts.
+
+## Screen annotation (pen tablet)
+
+Provided by [inkover](https://github.com/krshrimali/inkover), installed as
+`~/.local/bin/inkover`. The Wacom pen is mapped to the main monitor
+(`inputs.lua`).
+
+| Key | Action |
+|---|---|
+| `Super+Alt+D` | Start, then toggle DRAW ↔ PASS (ink stays, screen usable) |
+| `Super+Alt+C` | Clear all ink |
+| `Super+Alt+S` | Region screenshot with ink → file + clipboard |
+| `Super+Alt+V` | Record a region (screen + ink); again to stop → `~/Videos/inkover` |
+| `Super+Alt+G` | inkover control panel |
+| `Super+Alt+Shift+D` | Close the overlay (ink is discarded) |
+
+## Citrix
+
+`config/citrix.lua` only takes effect when running the patched
+`hyprland-citrix` build with `HYPR_CITRIX=1`: real multi-monitor layout for
+Xwayland, keyboard grabs for the fullscreen session, and `Super+Ctrl+Esc` to
+drop out of it. Citrix windows always open on an empty workspace of their
+monitor.
 
 ## Other binds
 

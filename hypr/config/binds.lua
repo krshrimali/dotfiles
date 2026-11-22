@@ -53,7 +53,21 @@ hl.bind(mainMod .. " + ALT + G",         hl.dsp.exec_cmd("~/.local/bin/inkover-g
 hl.bind(mainMod .. " + ALT + V",         hl.dsp.exec_cmd("~/.local/bin/inkover record region"))
 hl.bind(mainMod .. " + ALT + SHIFT + D", hl.dsp.exec_cmd("~/.local/bin/inkover quit"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())        -- dwindle
-hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))  -- dwindle
+-- SUPER+T does the layout-appropriate "reshape" for the focused workspace:
+--   dwindle (main monitor)    -> toggle split direction
+--   master  (left portrait)   -> cycle master orientation (top/left/...)
+--   scrolling (right portrait) -> cycle row height (scrolling:explicit_column_widths)
+hl.bind(mainMod .. " + T", function()
+    local ws = hl.get_active_workspace()
+    local layout = ws and ws.tiled_layout or "dwindle"
+    if layout == "scrolling" then
+        hl.dispatch(hl.dsp.layout("colresize +conf"))
+    elseif layout == "master" then
+        hl.dispatch(hl.dsp.layout("orientationnext"))
+    else
+        hl.dispatch(hl.dsp.layout("togglesplit"))
+    end
+end)
 
 -- Super+D opens the workspace preview grid (click a workspace to switch).
 -- Prefers the hyprexpo plugin; otherwise toggles the hyprexpose daemon.

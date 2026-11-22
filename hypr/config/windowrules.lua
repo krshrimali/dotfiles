@@ -93,3 +93,34 @@ hl.window_rule({
     size   = { "640", "780" },
     center = true,
 })
+
+------------------------
+---- APP HOMES      ----
+------------------------
+-- Some apps always open on a fixed monitor, wherever focus happens to be.
+-- These rules only act when a window opens, so you can still drag a window
+-- elsewhere afterwards. Workspace IDs follow config/workspaces.lua: 11-20 are
+-- the left portrait monitor (DP-4), 21-30 the right portrait one (HDMI-A-4).
+
+-- Chat + music: right portrait monitor, its workspace "1" (ID 21). "silent"
+-- opens them in the background, so starting Discord doesn't pull focus or the
+-- cursor away from the main monitor. With the portrait master layout they
+-- stack top/bottom on that workspace.
+hl.window_rule({
+    name      = "home-chat-right",
+    match     = { class = "^(discord|vesktop)$" },
+    workspace = "21 silent",
+})
+hl.window_rule({
+    name      = "home-music-right",
+    match     = { class = "^([Ss]potify|YouTube Music|feishin)$" },
+    workspace = "21 silent",
+})
+
+-- Browsers: left portrait monitor, on whichever workspace is active there.
+-- This one does take focus, since you usually open a browser to use it.
+hl.window_rule({
+    name    = "home-browser-left",
+    match   = { class = "^(Brave-browser|firefox|google-chrome)$" },
+    monitor = "DP-4",
+})
